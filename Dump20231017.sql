@@ -29,6 +29,7 @@ CREATE TABLE `books` (
   `Book_author_lastName` varchar(45) DEFAULT NULL,
   `Book_stock` varchar(45) DEFAULT NULL,
   `Book_isbn` varchar(45) DEFAULT NULL,
+  'Book_genre' varchar(4) DEFAULT NULL,
   PRIMARY KEY (`idbooks`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -54,6 +55,7 @@ CREATE TABLE `devices` (
   `Device_title` varchar(45) NOT NULL,
   `DeviceAuthor` varchar(45) NOT NULL,
   `DeviceStock` int NOT NULL,
+  'DeviceType' varchar(10) NOT NULL,
   PRIMARY KEY (`idDevices`),
   UNIQUE KEY `idDevices_UNIQUE` (`idDevices`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -77,8 +79,9 @@ DROP TABLE IF EXISTS `faculty`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `faculty` (
   `idFaculty` int NOT NULL,
-  `FirstName` varchar(45) NOT NULL,
-  `LastName` varchar(45) NOT NULL,
+  `FName` varchar(45) NOT NULL,
+  `LName` varchar(45) NOT NULL,
+  'Minit' varchar(45) NOT NULL,
   `Date_of_Birth` date NOT NULL,
   PRIMARY KEY (`idFaculty`),
   UNIQUE KEY `idFaculty_UNIQUE` (`idFaculty`)
@@ -106,6 +109,8 @@ CREATE TABLE `media` (
   `media_Title` varchar(45) NOT NULL,
   `Media_Author` varchar(60) NOT NULL,
   `Stock` varchar(45) NOT NULL,
+  'media_Category' NOT NULL,
+  );
   PRIMARY KEY (`idMedia`),
   UNIQUE KEY `idMedia_UNIQUE` (`idMedia`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -140,7 +145,31 @@ CREATE TABLE `student` (
 --
 -- Dumping data for table `student`
 --
+CREATE TABLE 'BookFine' (
+  'bfoverdue' double(5) DEFAULT NULL,
+  'bflost' double(5) DEFAULT NULL,
+  'bfdamaged' double(5) DEFAULT NULL,
+  FOREIGN KEY('idStudent' , 'idFaculty')
+  );
 
+CREATE TABLE 'Fine'(
+  FOREIGN KEY('idStudent' , 'idFaculty')
+  'freason' string(45) DEFAULT NULL,
+);
+  
+CREATE TABLE 'DeviceFine'(
+   FOREIGN KEY('idStudent', 'idFaculty')
+  'dflost' double(5) DEFAULT NULL
+  'dflost' double(5) DEFAULT NULL
+  'dfdamaged' double(5) DEFAULT NULL
+  );
+
+CREATE TABLE 'MediaFine' (
+  FOREIGN KEY('idStudent', 'idFaculty')
+  'mflost' double(5) DEFAULT NULL
+  'mfoverdue' double(5) DEFAULT NULL
+  'mfdamaged' double(5) DEFAULT NULL
+  );
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
 INSERT INTO `student` VALUES (123456,'Stan','Vegan',''),(331234,'Homer','Simpson','');
