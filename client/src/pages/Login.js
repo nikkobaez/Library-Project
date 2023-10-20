@@ -15,12 +15,9 @@ const Login = () => {
             username: username, 
             password: password,
         }).then((response) => {
-            if (response.data.message) {
-                setLoginStatus(response.data.message)
-            } else {
-                setUser(response.data[0].username)
-                navigate("/home");
-            }
+            console.log(response)
+        }).catch((error) => {
+            console.error(error);
         });
     };
 
