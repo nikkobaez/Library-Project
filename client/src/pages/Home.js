@@ -2,10 +2,13 @@ import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 const Home = () => {
-    const { user } = useContext(AuthContext);
+    const { contextUsername, contextUserid } = useContext(AuthContext);
 
     return (
-        <div>{user}</div>
+        <>
+            <div>{contextUsername}</div>
+            <div> {contextUserid} </div>
+        </>
     );
 }
 

@@ -20,6 +20,9 @@ const server = http.createServer((req, res) => {
             
             req.on("end", () => {
                 const body = JSON.parse(data);
+                const userid = body.userid;
+                const firstname = body.firstname;
+                const lastname = body.lastname; 
                 const username = body.username;
                 const password = body.password;
 
@@ -30,10 +33,11 @@ const server = http.createServer((req, res) => {
                         if (error) {
                             res.writeHead(500, { "Content-Type": "application/json" });
                             res.end(JSON.stringify({ error: error }));
-                        } else if (result.length > 0) {
+                        } else if (result[0]) {
                             res.writeHead(200, { "Content-Type": "application/json" });
                             res.end(JSON.stringify(result));
                         } else {
+                            console.log(result[0])
                             res.writeHead(200, { "Content-Type": "application/json" });
                             res.end(JSON.stringify({ message: "Wrong username/password" }));
                         }
@@ -48,12 +52,15 @@ const server = http.createServer((req, res) => {
 
             req.on("end", () => {
                 const body = JSON.parse(data);
+                const userid = body.userid;
+                const firstname = body.firstname;
+                const lastname = body.lastname; 
                 const username = body.username;
                 const password = body.password;
                 
                 db.query(
-                    "INSERT INTO users (username, password) VALUES (?, ?)",
-                    [username, password],
+                    "INSERT INTO users (userid, firstname, lastname, username, password) VALUES (?, ?, ?, ?, ?)",
+                    [userid, firstname, lastname, username, password],
                     (error) => {
                         if (error) {
                             console.log(error);
