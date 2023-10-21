@@ -1,7 +1,9 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import UserLogin from "./pages/UserLogin";
+import UserSignup from "./pages/UserSignup";
+import AdminLogin from "./pages/AdminLogin";
+import AdminSignup from "./pages/AdminSignup";
 import Home from "./pages/Home";
 
 function App() {
@@ -9,8 +11,10 @@ function App() {
         <BrowserRouter>
             <AuthProvider>
                 <Routes>
-                    <Route path="/" element={<Login />}/>
-                    <Route path="/sign-up" element={<Signup />}/>
+                    <Route path="/user-login" element={<UserLogin />}/>
+                    <Route path="/user-signup" element={<UserSignup />}/>
+                    <Route path="/admin-login" element={<AdminLogin />}/>
+                    <Route path="/admin-signup" element={<AdminSignup />}/>
                     <Route path="/home" element={<Home />}/>
                 </Routes>
             </AuthProvider>
