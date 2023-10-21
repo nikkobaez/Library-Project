@@ -1,5 +1,6 @@
 const http = require('http');
 const mysql = require("mysql2");
+const url = require('url');
 
 const db = mysql.createConnection({
     user: "root",
@@ -11,7 +12,22 @@ const db = mysql.createConnection({
 const server = http.createServer((req, res) => {
     handleCors(req, res);
 
-    if (req.method === "POST") {
+    if (req.method === "GET") {
+        if (req.url === "/users") {
+            db.query(
+                "SELECT * FROM users",
+                (error, result) => {
+                    if (error) {
+                        res.writeHead(500, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify({ error: error }));
+                    } else {
+                        res.writeHead(200, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify(result));
+                    }
+                }
+            );
+        }
+    } else if (req.method === "POST") {
         if (req.url === "/userlogin") {
             let data = "";
             req.on("data", (chunk) => {
@@ -128,6 +144,27 @@ const server = http.createServer((req, res) => {
                     }
                 );
             });
+        }
+    } else if (req.method === "DELETE") {
+        const reqURL = url.parse(req.url, true);
+        const pathSegments = reqURL.pathname.split("/");
+
+        if (pathSegments.length === 3 && pathSegments[1] === "users") {
+            const userid = pathSegments[2];
+
+            db.query(
+                "DELETE FROM users WHERE userid = ?",
+                [userid],
+                (error) => {
+                    if (error) {
+                        res.writeHead(500, {"Content-Type": "application/json"});
+                        res.end(JSON.stringify({error: error}));
+                    } else {
+                        res.writeHead(200, {"Content-Type": "application/json"});
+                        res.end(JSON.stringify({ message: "User has been deleted successfully" }));
+                    }
+                }
+            )
         }
     }
 });

@@ -7,7 +7,7 @@ const AdminLogin = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginStatus, setLoginStatus] = useState("");
-    const { contextSetUsername, contextSetUserid } = useContext(AuthContext);
+    const { setCurrentAuthenticatedId, setCurrentFirstname, setCurrentLastname } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const adminlogin = async () => {
@@ -18,9 +18,10 @@ const AdminLogin = () => {
             if (response.data.message) {
                 setLoginStatus(response.data.message);
             } else {
-                contextSetUsername(response.data[0].username);
-                contextSetUserid(response.data[0].adminid);
-                navigate("/home");
+                setCurrentAuthenticatedId(response.data[0].adminid);
+                setCurrentFirstname(response.data[0].firstname);
+                setCurrentLastname(response.data[0].lastname);
+                navigate("/admin-home");
             }
         }).catch((error) => {
             console.error(error);

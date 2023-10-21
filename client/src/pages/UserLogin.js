@@ -7,7 +7,7 @@ const UserLogin = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginStatus, setLoginStatus] = useState("");
-    const { contextSetUsername, contextSetUserid } = useContext(AuthContext);
+    const { setCurrentAuthenticatedId, setCurrentFirstname, setCurrentLastname } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const userlogin = async () => {
@@ -18,9 +18,10 @@ const UserLogin = () => {
             if (response.data.message) {
                 setLoginStatus(response.data.message);
             } else {
-                contextSetUsername(response.data[0].username);
-                contextSetUserid(response.data[0].userid);
-                navigate("/home");
+                setCurrentAuthenticatedId(response.data[0].userid);
+                setCurrentFirstname(response.data[0].firstname);
+                setCurrentLastname(response.data[0].lastname);
+                navigate("/user-home");
             }
         }).catch((error) => {
             console.error(error);
