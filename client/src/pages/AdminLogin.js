@@ -21,7 +21,7 @@ const AdminLogin = () => {
                 setCurrentAuthenticatedId(response.data[0].adminid);
                 setCurrentFirstname(response.data[0].firstname);
                 setCurrentLastname(response.data[0].lastname);
-                navigate("/admin-home");
+                navigate("/admin-dashboard-users");
             }
         }).catch((error) => {
             console.error(error);

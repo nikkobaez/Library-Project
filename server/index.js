@@ -68,12 +68,13 @@ const server = http.createServer((req, res) => {
                 const userid = body.userid;
                 const firstname = body.firstname;
                 const lastname = body.lastname; 
+                const status = body.status;
                 const username = body.username;
                 const password = body.password;
                 
                 db.query(
-                    "INSERT INTO users (userid, firstname, lastname, username, password) VALUES (?, ?, ?, ?, ?)",
-                    [userid, firstname, lastname, username, password],
+                    "INSERT INTO users (userid, firstname, lastname, status, username, password) VALUES (?, ?, ?, ?, ?, ?)",
+                    [userid, firstname, lastname, status, username, password],
                     (error) => {
                         if (error) {
                             console.log(error);

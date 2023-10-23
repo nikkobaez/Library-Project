@@ -35,10 +35,8 @@ const AdminSignup = () => {
         <div className="flex flex-col items-center justify-center w-screen h-screen">
             <div className="flex flex-col w-1/3">
                 <h1 className="my-2 text-2xl font-semibold"> Create An Account Admin! </h1>
-                <div className="flex flex-row gap-2">
-                    <input type="text" className="w-1/2 h-10 px-2 my-2 bg-gray-200 rounded-md " placeholder="First Name" onChange={(e) => {setFirstName(e.target.value)}}/>
-                    <input type="text" className="w-1/2 h-10 px-2 my-2 bg-gray-200 rounded-md " placeholder="Last Name" onChange={(e) => {setLastName(e.target.value)}}/>
-                </div>
+                <input type="text" className="h-10 px-2 my-2 bg-gray-200 rounded-md " placeholder="First Name" onChange={(e) => {setFirstName(e.target.value)}}/>
+                <input type="text" className="h-10 px-2 my-2 bg-gray-200 rounded-md " placeholder="Last Name" onChange={(e) => {setLastName(e.target.value)}}/>
                 <input type="text" className="h-10 px-2 my-2 bg-gray-200 rounded-md " placeholder="Email Address" onChange={(e) => {setUsername(e.target.value)}}/>
                 <input type="text" className="h-10 px-2 my-2 bg-gray-200 rounded-md " placeholder="Password" onChange={(e) => {setPassword(e.target.value)}}/>
                 <input type="text" className="h-10 px-2 my-2 bg-gray-200 rounded-md " placeholder="Secret Key" onChange={(e) => {setSecretKey(e.target.value)}}/>

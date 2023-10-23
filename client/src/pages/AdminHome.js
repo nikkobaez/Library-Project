@@ -41,6 +41,7 @@ const AdminHome = () => {
                         <p className="font-bold"> User Id: {user.userid} </p> 
                         <p className="font-bold"> First Name: {user.firstname} </p> 
                         <p className="font-bold"> Last Name: {user.lastname} </p> 
+                        <p className="font-bold"> Status: {user.status} </p> 
                         <button> Update </button>
                         <button onClick={() => {deleteUser(user.userid)}}> Delete </button>
                     </div>
