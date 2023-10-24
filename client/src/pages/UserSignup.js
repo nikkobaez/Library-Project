@@ -41,8 +41,8 @@ const UserSignup = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center w-screen h-screen">
-            <div className="flex flex-col w-1/3">
+        <div className="flex flex-col items-center justify-center w-screen h-screen bg-[#5494D4]">
+            <div className="flex flex-col w-1/2 p-10 bg-white rounded-xl">
                 <h1 className="my-2 text-2xl font-semibold"> Create An Account User! </h1>
                 <input type="text" className="h-10 px-2 my-2 bg-gray-200 rounded-md " placeholder="First Name" onChange={(e) => {setFirstName(e.target.value)}}/>
                 <input type="text" className="h-10 px-2 my-2 bg-gray-200 rounded-md " placeholder="Last Name" onChange={(e) => {setLastName(e.target.value)}}/>
@@ -54,8 +54,8 @@ const UserSignup = () => {
                 </div>
                 <button onClick={userSignup} className="h-10 px-2 my-2 text-white bg-blue-500 rounded-md "> Sign Up </button>
                 <div className="flex flex-col items-center justify-center">
-                    <p> Already have an account? <span className="text-blue-500 hover:cursor-pointer" onClick={() => navigate("/user-login")}> Login </span></p>
-                    <p> {signupStatus} </p>
+                    <p className="mt-2"> Already have an account? <span className="text-blue-500 hover:cursor-pointer" onClick={() => navigate("/user-login")}> Login </span></p>
+                    <p className="mt-2"> {signupStatus} </p>
                 </div>
             </div>
         </div>

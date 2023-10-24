@@ -31,15 +31,15 @@ const AdminLogin = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center w-screen h-screen">
-            <div className="flex flex-col w-1/3">
+        <div className="flex flex-col items-center justify-center w-screen h-screen bg-[#5494D4]">
+            <div className="flex flex-col w-1/2 p-10 bg-white rounded-xl">
                 <h1 className="my-2 text-2xl font-semibold"> Welcome Back Admin! </h1>
                 <input type="text" className="h-10 px-2 my-2 bg-gray-200 rounded-md" placeholder="Email Address" onChange={(e) => {setUsername(e.target.value)}}/>
                 <input type="text" className="h-10 px-2 my-2 bg-gray-200 rounded-md" placeholder="Password" onChange={(e) => {setPassword(e.target.value)}}/>
                 <button onClick={adminLogin} className="h-10 px-2 my-2 text-white bg-blue-500 rounded-md "> Login </button>
                 <div className="flex flex-col items-center justify-center">
-                    <p> Don't have an account yet? <span className="text-blue-500 hover:cursor-pointer" onClick={() => navigate("/admin-signup")}> Sign Up </span></p>
-                    <p> {loginStatus} </p>
+                    <p className="mt-2"> Don't have an account yet? <span className="text-blue-500 hover:cursor-pointer" onClick={() => navigate("/admin-signup")}> Sign Up </span></p>
+                    <p className="mt-2"> {loginStatus} </p>
                 </div>
             </div>
         </div>

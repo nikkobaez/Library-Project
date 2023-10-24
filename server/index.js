@@ -106,7 +106,7 @@ const server = http.createServer((req, res) => {
                             res.end(JSON.stringify(result));
                         } else {
                             res.writeHead(200, { "Content-Type": "application/json" });
-                            res.end(JSON.stringify({ message: "Wrong username/password" }));
+                            res.end(JSON.stringify({ message: "Wrong username or password" }));
                         }
                     }
                 );
@@ -197,7 +197,7 @@ const server = http.createServer((req, res) => {
                             res.end(JSON.stringify(result));
                         } else {
                             res.writeHead(200, { "Content-Type": "application/json" });
-                            res.end(JSON.stringify({ message: "Wrong username/password" }));
+                            res.end(JSON.stringify({ message: "Wrong username or password" }));
                         }
                     }
                 );
