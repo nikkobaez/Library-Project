@@ -1,7 +1,9 @@
 import { createContext, useState, useEffect } from 'react';
 
+// Create Our Context
 export const AuthContext = createContext();
 
+// Local Storage Functions
 const getAuthenticatedId = () => {
     const authenticatedId = localStorage.getItem("authenticatedId");
     return authenticatedId ? JSON.parse(authenticatedId) : "";
@@ -17,6 +19,7 @@ const getLastName = () => {
     return lastname ? JSON.parse(lastname) : "";
 }
 
+// Context Function
 export const AuthProvider = ({children}) => {
     const [currentAuthenticatedId, setCurrentAuthenticatedId] = useState(getAuthenticatedId);
     const [currentFirstname, setCurrentFirstname] = useState(getFirstName);

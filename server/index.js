@@ -165,8 +165,39 @@ const server = http.createServer((req, res) => {
                         res.end(JSON.stringify({ message: "User has been deleted successfully" }));
                     }
                 }
-            )
+            );
         }
+    } else if (req.method === "PUT") {
+        const reqURL = url.parse(req.url, true);
+        const pathSegments = reqURL.pathname.split("/");
+
+        if (pathSegments.length === 3 && pathSegments[1] === "users") {
+            const userid = pathSegments[2];
+
+            let data = "";
+            req.on("data", (chunk) => {
+                data += chunk;
+            });
+
+            req.on("end", () => {
+                const body = JSON.parse(data);
+
+                db.query(
+                    "UPDATE users SET `firstname` = ?, `lastname` = ?, `status` = ?, `username` = ?, `password` = ? WHERE `userid` = ?",
+                    [body.firstname, body.lastname, body.status, body.username, body.password, userid],
+                    (error) => {
+                        if (error) {
+                            res.writeHead(500, { 'Content-Type': 'application/json' });
+                            res.end(JSON.stringify({ error: 'Internal Server Error' }));
+                        } else {
+                            res.writeHead(200, { 'Content-Type': 'application/json' });
+                            res.end(JSON.stringify({ message: 'Book has been updated successfully' }));
+                        }
+                    }
+                );
+            });
+        }
+
     }
 });
 

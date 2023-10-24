@@ -4,9 +4,11 @@ import { AuthContext } from "../context/AuthContext";
 import { FaBookOpen } from 'react-icons/fa'
 
 const AdminNavbar = () => {
+    // Variables
     const { currentFirstname, currentLastname, setCurrentAuthenticatedId, setCurrentFirstname, setCurrentLastname } = useContext(AuthContext);
     const navigate = useNavigate();
 
+    // Admin Logout Function
     const adminLogout = () => {
         setCurrentAuthenticatedId("");
         setCurrentFirstname("");
@@ -16,7 +18,7 @@ const AdminNavbar = () => {
     }
 
     return (
-        <>
+        <div>
             {/* Top Navigation Bar */}
             <div className='w-screen h-20 bg-[#5494D4] flex justify-between items-center'>
                 <div className='flex items-center justify-center gap-4 ml-6'>
@@ -25,7 +27,6 @@ const AdminNavbar = () => {
                 </div>
                 <div className='flex items-center justify-center gap-4 mr-6'>
                     <ul className='flex gap-6 mr-4'>
-                        {/* <li className='text-white hover:cursor-pointer'> Dashboard </li> */}
                         <li className='text-white hover:cursor-pointer'> Users </li>
                         <li className='text-white hover:cursor-pointer'> Available </li>
                         <li className='text-white hover:cursor-pointer'> Rented </li>
@@ -39,14 +40,8 @@ const AdminNavbar = () => {
             {/* Bottom Navigation Bar */}
             <div className='flex items-center justify-between mx-6 my-10'>
                 <p className="text-xl"> Hello {currentFirstname + " " + currentLastname}</p>
-                {/* <ul className="flex gap-6">
-                    <li className="hover:cursor-pointer text-[#3849A1] font-semibold"> Users </li>
-                    <li className="hover:cursor-pointer text-[#3849A1] font-semibold"> Available </li>
-                    <li className="hover:cursor-pointer text-[#3849A1] font-semibold"> Rented </li>
-                    <li className="hover:cursor-pointer text-[#3849A1] font-semibold"> Processing </li>
-                </ul> */}
             </div>
-        </>
+        </div>
     )
 }
 

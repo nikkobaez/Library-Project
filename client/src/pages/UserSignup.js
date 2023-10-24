@@ -4,6 +4,7 @@ import uuid from 'react-uuid';
 import axios from 'axios';
 
 const UserSignup = () => {
+    // Variables
     const [firstname, setFirstName] = useState("");
     const [lastname, setLastName] = useState("");
     const [username, setUsername] = useState("");
@@ -11,7 +12,8 @@ const UserSignup = () => {
     const [status, setStatus] = useState("Student");
     const navigate = useNavigate();
 
-    const usersignup = async () => {
+    // User Sign Up Function
+    const userSignup = async () => {
         axios.post('http://localhost:3001/usersignup', {
             userid: uuid(),
             firstname: firstname,
@@ -39,7 +41,7 @@ const UserSignup = () => {
                     <button onClick={() => setStatus("Student")} className={`${status === "Student" ? "bg-[#00BBFF]" : "bg-[#7C829D]"} text-white px-4 py-2 rounded-md w-1/2`}> Student </button>
                     <button onClick={() => setStatus("Faculty")} className={`${status === "Faculty" ? "bg-[#00BBFF]" : "bg-[#7C829D]"} text-white px-4 py-2 rounded-md w-1/2`}> Faculty </button>
                 </div>
-                <button onClick={usersignup} className="h-10 px-2 my-2 text-white bg-blue-500 rounded-md "> Sign Up </button>
+                <button onClick={userSignup} className="h-10 px-2 my-2 text-white bg-blue-500 rounded-md "> Sign Up </button>
                 <div className="flex flex-col items-center justify-center">
                     <p> Already have an account? <span className="text-blue-500 hover:cursor-pointer" onClick={() => navigate("/user-login")}> Login </span></p>
                 </div>

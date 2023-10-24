@@ -4,6 +4,7 @@ import uuid from 'react-uuid';
 import axios from 'axios';
 
 const AdminSignup = () => {
+    // Variables
     const [firstname, setFirstName] = useState("");
     const [lastname, setLastName] = useState("");
     const [username, setUsername] = useState("");
@@ -12,7 +13,8 @@ const AdminSignup = () => {
     const [secretkey, setSecretKey] = useState("");
     const navigate = useNavigate();
 
-    const adminsignup = async () => {
+    // Admin Sign Up Function
+    const adminSignup = async () => {
           if (secretkey === "umarocks") {
             axios.post('http://localhost:3001/adminsignup', {
               adminid: uuid(),
@@ -40,7 +42,7 @@ const AdminSignup = () => {
                 <input type="text" className="h-10 px-2 my-2 bg-gray-200 rounded-md " placeholder="Email Address" onChange={(e) => {setUsername(e.target.value)}}/>
                 <input type="text" className="h-10 px-2 my-2 bg-gray-200 rounded-md " placeholder="Password" onChange={(e) => {setPassword(e.target.value)}}/>
                 <input type="text" className="h-10 px-2 my-2 bg-gray-200 rounded-md " placeholder="Secret Key" onChange={(e) => {setSecretKey(e.target.value)}}/>
-                <button onClick={adminsignup} className="h-10 px-2 my-2 text-white bg-blue-500 rounded-md "> Sign Up </button>
+                <button onClick={adminSignup} className="h-10 px-2 my-2 text-white bg-blue-500 rounded-md "> Sign Up </button>
                 <div className="flex flex-col items-center justify-center">
                     <p> Already have an account? <span className="text-blue-500 hover:cursor-pointer" onClick={() => navigate("/admin-login")}> Login </span></p>
                     <p> {signupStatus} </p>
