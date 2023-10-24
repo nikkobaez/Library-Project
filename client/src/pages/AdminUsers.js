@@ -17,6 +17,7 @@ const AdminUsers = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [status, setStatus] = useState("Student");
+    const [addUserStatus, setAddUserStatus] = useState("");
 
     // Filter and Content Variables
     const [filter, setFilter] = useState("All Users"); 
@@ -24,21 +25,30 @@ const AdminUsers = () => {
     const students = users.filter (user => user.status === "Student");
     const faculty = users.filter(user => user.status === "Faculty");
 
-
     // Add A User
     const addUser = async () => {
-        axios.post('http://localhost:3001/usersignup', {
-            userid: uuid(),
-            firstname: firstname,
-            lastname: lastname,
-            status: status,
-            username: username, 
-            password: password,
+        axios.post('http://localhost:3001/usercheck', {
+            username: username
         }).then((response) => {
-            console.log(response);
-            window.location.reload();
+            if (response.data.message === "User already exists") {
+                setAddUserStatus("User already exists");
+            } else {
+                axios.post('http://localhost:3001/usersignup', {
+                    userid: uuid(),
+                    firstname: firstname,
+                    lastname: lastname,
+                    status: status,
+                    username: username, 
+                    password: password,
+                }).then((response) => {
+                    console.log(response);
+                }).catch((error) => {
+                    console.error(error);
+                });
+                window.location.reload();
+            }
         }).catch((error) => {
-            console.error(error);
+            console.log(error)
         });
     };
 
@@ -207,6 +217,7 @@ const AdminUsers = () => {
                             <button onClick={() => setStatus("Faculty")} className={`${status === "Faculty" ? "bg-[#00BBFF]" : "bg-[#7C829D]"} text-white px-4 py-2 rounded-md w-1/2`}> Faculty </button>
                         </div>
                         <button onClick={addUser} className="w-3/4 h-10 px-2 my-2 text-white bg-blue-500 rounded-md "> Add </button>
+                        <p> {addUserStatus} </p>
                     </div>
                 </div>
             )}

@@ -10,23 +10,34 @@ const UserSignup = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [status, setStatus] = useState("Student");
+    const [signupStatus, setSignupStatus] = useState("");
     const navigate = useNavigate();
 
     // User Sign Up Function
     const userSignup = async () => {
-        axios.post('http://localhost:3001/usersignup', {
-            userid: uuid(),
-            firstname: firstname,
-            lastname: lastname,
-            status: status,
-            username: username, 
-            password: password,
+        axios.post('http://localhost:3001/usercheck', {
+            username: username
         }).then((response) => {
-            console.log(response);
+            if (response.data.message === "User already exists") {
+                setSignupStatus("User already exists");
+            } else {
+                axios.post('http://localhost:3001/usersignup', {
+                    userid: uuid(),
+                    firstname: firstname,
+                    lastname: lastname,
+                    status: status,
+                    username: username, 
+                    password: password,
+                }).then((response) => {
+                    console.log(response);
+                }).catch((error) => {
+                    console.error(error);
+                });
+                navigate("/user-login")
+            }
         }).catch((error) => {
-            console.error(error);
+            console.log(error)
         });
-        navigate("/user-login")
     };
 
     return (
@@ -44,6 +55,7 @@ const UserSignup = () => {
                 <button onClick={userSignup} className="h-10 px-2 my-2 text-white bg-blue-500 rounded-md "> Sign Up </button>
                 <div className="flex flex-col items-center justify-center">
                     <p> Already have an account? <span className="text-blue-500 hover:cursor-pointer" onClick={() => navigate("/user-login")}> Login </span></p>
+                    <p> {signupStatus} </p>
                 </div>
             </div>
         </div>

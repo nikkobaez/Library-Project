@@ -2,6 +2,7 @@ const http = require('http');
 const mysql = require("mysql2");
 const url = require('url');
 
+// Connect To Database
 const db = mysql.createConnection({
     user: "root",
     host: "localhost",
@@ -9,10 +10,16 @@ const db = mysql.createConnection({
     database: "library",
 });
 
+// Create A Server
 const server = http.createServer((req, res) => {
+
+    // Handle Cors Function To Allow Axios
     handleCors(req, res);
 
+    // GET Requests 
     if (req.method === "GET") {
+
+        // Get All Users
         if (req.url === "/users") {
             db.query(
                 "SELECT * FROM users",
@@ -27,8 +34,41 @@ const server = http.createServer((req, res) => {
                 }
             );
         }
+
+    // POST Requests
     } else if (req.method === "POST") {
-        if (req.url === "/userlogin") {
+
+        // Check For User
+        if (req.url === "/usercheck") {
+            let data = "";
+            req.on("data", (chunk) => {
+                data+= chunk;
+            });
+
+            req.on("end", () => {
+                const body = JSON.parse(data);
+                const username = body.username;
+
+                db.query(
+                    "SELECT * FROM users WHERE username = ?",
+                    [username],
+                    (error, result) => {
+                        if (error) {
+                            res.writeHead(500, { "Content-Type": "application/json" });
+                            res.end(JSON.stringify({ error: error }));
+                        } else if (result[0]) {
+                            res.writeHead(200, { "Content-Type": "application/json" });
+                            res.end(JSON.stringify({ message: "User already exists" }));
+                        } else {
+                            res.writeHead(200, { "Content-Type": "application/json" });
+                            res.end(JSON.stringify({ message: "User does not exist" }));
+                        }
+                    }
+                )
+            });
+        
+        // Get A User
+        } else if (req.url === "/userlogin") {
             let data = "";
             req.on("data", (chunk) => {
                 data += chunk;
@@ -50,13 +90,14 @@ const server = http.createServer((req, res) => {
                             res.writeHead(200, { "Content-Type": "application/json" });
                             res.end(JSON.stringify(result));
                         } else {
-                            console.log(result[0])
                             res.writeHead(200, { "Content-Type": "application/json" });
                             res.end(JSON.stringify({ message: "Wrong username/password" }));
                         }
                     }
                 );
             });
+
+        // Create A User
         } else if (req.url === "/usersignup") {
             let data = "";
             req.on("data", (chunk) => {
@@ -87,6 +128,37 @@ const server = http.createServer((req, res) => {
                     }
                 );
             });
+        
+        // Check For Admin
+        } else if (req.url === "/admincheck") {
+            let data = "";
+            req.on("data", (chunk) => {
+                data+= chunk;
+            });
+
+            req.on("end", () => {
+                const body = JSON.parse(data);
+                const username = body.username;
+
+                db.query(
+                    "SELECT * FROM admins WHERE username = ?",
+                    [username],
+                    (error, result) => {
+                        if (error) {
+                            res.writeHead(500, { "Content-Type": "application/json" });
+                            res.end(JSON.stringify({ error: error }));
+                        } else if (result[0]) {
+                            res.writeHead(200, { "Content-Type": "application/json" });
+                            res.end(JSON.stringify({ message: "Admin already exists" }));
+                        } else {
+                            res.writeHead(200, { "Content-Type": "application/json" });
+                            res.end(JSON.stringify({ message: "Admin does not exist" }));
+                        }
+                    }
+                )
+            });
+
+        // Get An Admin
         } else if (req.url === "/adminlogin") {
             let data = "";
             req.on("data", (chunk) => {
@@ -109,13 +181,14 @@ const server = http.createServer((req, res) => {
                             res.writeHead(200, { "Content-Type": "application/json" });
                             res.end(JSON.stringify(result));
                         } else {
-                            console.log(result[0])
                             res.writeHead(200, { "Content-Type": "application/json" });
                             res.end(JSON.stringify({ message: "Wrong username/password" }));
                         }
                     }
                 );
             });
+        
+        // Create An Admin
         } else if (req.url === "/adminsignup") {
             let data = "";
             req.on("data", (chunk) => {
@@ -146,10 +219,13 @@ const server = http.createServer((req, res) => {
                 );
             });
         }
+
+    // DELETE Requests
     } else if (req.method === "DELETE") {
         const reqURL = url.parse(req.url, true);
         const pathSegments = reqURL.pathname.split("/");
 
+        // Delete A User
         if (pathSegments.length === 3 && pathSegments[1] === "users") {
             const userid = pathSegments[2];
 
@@ -167,10 +243,13 @@ const server = http.createServer((req, res) => {
                 }
             );
         }
+    
+    // PUT Requests
     } else if (req.method === "PUT") {
         const reqURL = url.parse(req.url, true);
         const pathSegments = reqURL.pathname.split("/");
 
+        // Update A User
         if (pathSegments.length === 3 && pathSegments[1] === "users") {
             const userid = pathSegments[2];
 
@@ -201,6 +280,7 @@ const server = http.createServer((req, res) => {
     }
 });
 
+// Handle Cors Function To Allow Axios
 const handleCors = (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
@@ -213,6 +293,7 @@ const handleCors = (req, res) => {
     }
 };
 
+// Set Up Server To Listen For Requests From Port 3001
 const PORT = 3001;
 server.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);

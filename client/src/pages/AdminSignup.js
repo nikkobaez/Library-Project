@@ -15,21 +15,31 @@ const AdminSignup = () => {
 
     // Admin Sign Up Function
     const adminSignup = async () => {
-          if (secretkey === "umarocks") {
-            axios.post('http://localhost:3001/adminsignup', {
-              adminid: uuid(),
-              firstname: firstname,
-              lastname: lastname,
-              username: username, 
-              password: password,
-          }).then((response) => {
-              console.log(response);
-          }).catch((error) => {
-              console.error(error);
-          });
-          navigate("/admin-login")
+        if (secretkey === "umarocks") {
+            axios.post("http://localhost:3001/admincheck", {
+                username: username 
+            }).then((response) => {
+                if (response.data.message === "Admin already exists") {
+                    setSignupStatus("Admin already exists")
+                } else {
+                    axios.post('http://localhost:3001/adminsignup', {
+                        adminid: uuid(),
+                        firstname: firstname,
+                        lastname: lastname,
+                        username: username, 
+                        password: password,
+                    }).then((response) => {
+                        console.log(response);
+                    }).catch((error) => {
+                        console.error(error);
+                    });
+                    navigate("/admin-login")
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
         } else {
-          setSignupStatus("Wrong secret key")
+            setSignupStatus("Wrong secret key")
         }
     };
 
