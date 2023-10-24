@@ -33,6 +33,21 @@ const server = http.createServer((req, res) => {
                     }
                 }
             );
+        
+        // Get All Items
+        } else if (req.url === "/available") {
+            db.query(
+                "SELECT * FROM available",
+                (error, result) => {
+                    if (error) {
+                        res.writeHead(500, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify({ error: error }));
+                    } else {
+                        res.writeHead(200, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify(result));
+                    }
+                }
+            );
         }
 
     // POST Requests
@@ -123,7 +138,7 @@ const server = http.createServer((req, res) => {
                             res.end(JSON.stringify({error: error}));
                         } else {
                             res.writeHead(200, {"Content-Type": "application/json"});
-                            res.end(JSON.stringify({ message: "User signed up successfully" }));
+                            res.end(JSON.stringify({ message: "User has signed up successfully" }));
                         }
                     }
                 );
@@ -213,7 +228,38 @@ const server = http.createServer((req, res) => {
                             res.end(JSON.stringify({error: error}));
                         } else {
                             res.writeHead(200, {"Content-Type": "application/json"});
-                            res.end(JSON.stringify({ message: "User signed up successfully" }));
+                            res.end(JSON.stringify({ message: "User has signed up successfully" }));
+                        }
+                    }
+                );
+            });
+
+        // Add An Item
+        } else if (req.url === "/addtoavailable") {
+            let data = "";
+            req.on("data", (chunk) => {
+                data += chunk;
+            });
+
+            req.on("end", () => {
+                const body = JSON.parse(data);
+                const itemid = body.itemid;
+                const title = body.title;
+                const author = body.author; 
+                const cover = body.cover;
+                const type = body.type;
+                
+                db.query(
+                    "INSERT INTO available (itemid, title, author, cover, type) VALUES (?, ?, ?, ?, ?)",
+                    [itemid, title, author, cover, type],
+                    (error) => {
+                        if (error) {
+                            console.log(error);
+                            res.writeHead(500, {"Content-Type": "application/json"});
+                            res.end(JSON.stringify({error: error}));
+                        } else {
+                            res.writeHead(200, {"Content-Type": "application/json"});
+                            res.end(JSON.stringify({ message: "Item has been added successfully" }));
                         }
                     }
                 );
@@ -239,6 +285,24 @@ const server = http.createServer((req, res) => {
                     } else {
                         res.writeHead(200, {"Content-Type": "application/json"});
                         res.end(JSON.stringify({ message: "User has been deleted successfully" }));
+                    }
+                }
+            );
+        
+        // Delete An Item
+        } else if (pathSegments.length === 3 && pathSegments[1] === "available") {
+            const itemid = pathSegments[2];
+
+            db.query(
+                "DELETE FROM available WHERE itemid = ?",
+                [itemid],
+                (error) => {
+                    if (error) {
+                        res.writeHead(500, {"Content-Type": "application/json"});
+                        res.end(JSON.stringify({error: error}));
+                    } else {
+                        res.writeHead(200, {"Content-Type": "application/json"});
+                        res.end(JSON.stringify({ message: "Item has been deleted successfully" }));
                     }
                 }
             );
@@ -270,13 +334,39 @@ const server = http.createServer((req, res) => {
                             res.end(JSON.stringify({ error: 'Internal Server Error' }));
                         } else {
                             res.writeHead(200, { 'Content-Type': 'application/json' });
-                            res.end(JSON.stringify({ message: 'Book has been updated successfully' }));
+                            res.end(JSON.stringify({ message: 'User has been updated successfully' }));
+                        }
+                    }
+                );
+            });
+        
+        // Update An Item
+        } else if (pathSegments.length === 3 && pathSegments[1] === "available") {
+            const itemid = pathSegments[2];
+            
+            let data = "";
+            req.on("data", (chunk) => {
+                data += chunk;
+            });
+
+            req.on("end", () => {
+                const body = JSON.parse(data);
+
+                db.query(
+                    "UPDATE available SET `title` = ?, `author` = ?, `cover` = ?, `type` = ? WHERE `itemid` = ?",
+                    [body.title, body.author, body.cover, body.type, itemid],
+                    (error) => {
+                        if (error) {
+                            res.writeHead(500, { 'Content-Type': 'application/json' });
+                            res.end(JSON.stringify({ error: 'Internal Server Error' }));
+                        } else {
+                            res.writeHead(200, { 'Content-Type': 'application/json' });
+                            res.end(JSON.stringify({ message: 'Item has been updated successfully' }));
                         }
                     }
                 );
             });
         }
-
     }
 });
 

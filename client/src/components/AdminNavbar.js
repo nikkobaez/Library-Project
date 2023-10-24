@@ -27,8 +27,8 @@ const AdminNavbar = () => {
                 </div>
                 <div className='flex items-center justify-center gap-4 mr-6'>
                     <ul className='flex gap-6 mr-4'>
-                        <li className='text-white hover:cursor-pointer'> Users </li>
-                        <li className='text-white hover:cursor-pointer'> Available </li>
+                        <li onClick={() => navigate("/admin-dashboard-users")} className='text-white hover:cursor-pointer'> Users </li>
+                        <li onClick={() => navigate("/admin-dashboard-available")} className='text-white hover:cursor-pointer'> Available </li>
                         <li className='text-white hover:cursor-pointer'> Rented </li>
                         <li className='text-white hover:cursor-pointer'> Processing </li>
                         <li className='text-white hover:cursor-pointer'> Reports </li>

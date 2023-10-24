@@ -6,6 +6,7 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminSignup from "./pages/AdminSignup";
 import UserHome from "./pages/UserHome";
 import AdminUsers from "./pages/AdminUsers";
+import AdminAvailable from "./pages/AdminAvailable";
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                     <Route path="/admin-login" element={<AdminLogin />}/>
                     <Route path="/admin-signup" element={<AdminSignup />}/>
                     <Route path="/admin-dashboard-users" element={<AdminUsers/>}/>
+                    <Route path="/admin-dashboard-available" element={<AdminAvailable/>}/>
                 </Routes>
             </AuthProvider>
         </BrowserRouter>

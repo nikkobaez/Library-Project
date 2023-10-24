@@ -27,13 +27,13 @@ const AdminUsers = () => {
 
     // Add A User
     const addUser = async () => {
-        axios.post('http://localhost:3001/usercheck', {
+        axios.post("http://localhost:3001/usercheck", {
             username: username
         }).then((response) => {
             if (response.data.message === "User already exists") {
                 setAddUserStatus("User already exists");
             } else {
-                axios.post('http://localhost:3001/usersignup', {
+                axios.post("http://localhost:3001/usersignup", {
                     userid: uuid(),
                     firstname: firstname,
                     lastname: lastname,
@@ -80,8 +80,8 @@ const AdminUsers = () => {
             window.location.reload();
         }).catch((error) => {
             console.log(error);
-        })
-    }
+        });
+    };
 
     // Delete A User
     const deleteUser = async (userid) => {
