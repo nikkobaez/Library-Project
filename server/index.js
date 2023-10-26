@@ -1,6 +1,8 @@
 const http = require('http');
-const mysql = require("mysql2");
+const fs = require("fs");
 const url = require('url');
+const path = require("path");
+const mysql = require("mysql2");
 
 // Connect To Database
 const db = mysql.createConnection({
@@ -18,9 +20,22 @@ const server = http.createServer((req, res) => {
 
     // GET Requests 
     if (req.method === "GET") {
+        // Heroku Setup
+        if (req.url === "/") {
+            const filePath = path.join(__dirname, "../client/build/index.html");
+
+            fs.readFile(filePath, (err, data) => {
+                if (err) {
+                    res.writeHead(500, { 'Content-Type': 'text/plain' });
+                    res.end(err.message);
+                } else {
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                    res.end(data);
+                }
+            });
 
         // Get All Users
-        if (req.url === "/users") {
+        } else if (req.url === "/users") {
             db.query(
                 "SELECT * FROM users",
                 (error, result) => {
@@ -642,7 +657,7 @@ const handleCors = (req, res) => {
 };
 
 // Set Up Server To Listen For Requests From Port 3001
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
 });
