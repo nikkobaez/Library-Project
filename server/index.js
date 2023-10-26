@@ -20,12 +20,7 @@ const server = http.createServer((req, res) => {
 
     // GET Requests 
     if (req.method === "GET") {
-        // Domain Setup Test
-        if (req.url === "/") {
-            res.setHeader('Content-Type', 'text/html');
-            res.end('<html><body>Hello, World!</body></html>');
-        // Get All Users
-        } else if (req.url === "/users") {
+        if (req.url === "/users") {
             db.query(
                 "SELECT * FROM users",
                 (error, result) => {
