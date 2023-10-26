@@ -24,7 +24,7 @@ const AdminAvailable = () => {
     const media = available.filter(item => item.type === "Media");
     const devices = available.filter(item => item.type === "Device");
 
-    // Add An Item
+    // Add An Item To Available
     const addItem = async () => {
         axios.post("http://localhost:3001/addtoavailable", {
             itemid: uuid(),
@@ -40,7 +40,7 @@ const AdminAvailable = () => {
         window.location.reload();
     };
 
-    // Get All Items
+    // Get All Items From Available
     useEffect(() => {
         const getAllItems = async () => {
             axios.get("http://localhost:3001/available")
@@ -54,7 +54,7 @@ const AdminAvailable = () => {
         getAllItems();
     }, []);
 
-    // Update An Item
+    // Update An Item In Available
     const updateItem = async () => {
         axios.put("http://localhost:3001/available/" + itemid, {
             itemid: itemid,
@@ -70,7 +70,7 @@ const AdminAvailable = () => {
         });
     };
 
-    // Delete An Item
+    // Delete An Item From Available
     const deleteItem = async (itemid) => {
         axios.delete("http://localhost:3001/available/" + itemid)
         .then((response) => {
@@ -87,7 +87,7 @@ const AdminAvailable = () => {
             <div className="flex flex-col mx-6">
                 {/* Buttons */}
                 <div className="flex items-center justify-between">
-                    <div className="flex gap-6">
+                    <div className="flex gap-4">
                         <button onClick={() => setFilter("All Available")} className={`${filter === "All Available" ? "bg-[#00BBFF]" : "bg-[#7C829D]"} text-white px-4 py-2 rounded-md`}> All Available </button>
                         <button onClick={() => setFilter("Books")} className={`${filter === "Books" ? "bg-[#00BBFF]" : "bg-[#7C829D]"} text-white px-4 py-2 rounded-md`}> Books </button>
                         <button onClick={() => setFilter("Media")} className={`${filter === "Media" ? "bg-[#00BBFF]" : "bg-[#7C829D]"} text-white px-4 py-2 rounded-md`}> Media </button>
@@ -98,6 +98,31 @@ const AdminAvailable = () => {
                         <FaPlus size={25} color='black' onClick={() => setShowAddModal(true)} className="hover:cursor-pointer"/>
                     </div>
                 </div>
+
+                {/* Empty Content */}
+                {filter === "All Available" && available.length === 0 && (
+                    <div className="flex items-center justify-center w-full my-10">
+                        <p> No Items </p>
+                    </div>
+                )}
+
+                {filter === "Books" && books.length === 0 && (
+                    <div className="flex items-center justify-center w-full my-10">
+                        <p> No Books </p>
+                    </div>
+                )}
+
+                {filter === "Media" && media.length === 0 && (
+                    <div className="flex items-center justify-center w-full my-10">
+                        <p> No Media </p>
+                    </div>
+                )}
+
+                {filter === "Devices" && devices.length === 0 && (
+                    <div className="flex items-center justify-center w-full my-10">
+                        <p> No Devices </p>
+                    </div>
+                )}
 
                 {/* Content */}
                 <div className="flex flex-col gap-10 my-10">
@@ -110,7 +135,7 @@ const AdminAvailable = () => {
                                     <p className="flex w-1/5"> {item.title}</p>
                                     <p className="flex w-1/5"> {item.author} </p>
                                     <p className="flex w-1/5"> {item.itemid.substring(0, 19) + "..."} </p>
-                                    <div className="flex justify-between w-1/5 gap-4">
+                                    <div className="flex justify-between w-1/5 gap-2">
                                         <button onClick={() => {
                                             setShowUpdateModal(true)
                                             setItemid(item.itemid)
@@ -133,12 +158,14 @@ const AdminAvailable = () => {
                                     <p className="flex w-1/5"> {item.title}</p>
                                     <p className="flex w-1/5"> {item.author} </p>
                                     <p className="flex w-1/5"> {item.itemid.substring(0, 19) + "..."} </p>
-                                    <div className="flex justify-between w-1/5 gap-4">
+                                    <div className="flex justify-between w-1/5 gap-2">
                                         <button onClick={() => {
                                             setShowUpdateModal(true)
                                             setItemid(item.itemid)
                                         }} className='bg-[#29E3B6] text-white px-4 py-2 rounded-md w-1/2'> Update </button>
-                                        <button className='bg-[#E16C68] text-white px-4 py-2 rounded-md w-1/2'> Delete </button>
+                                        <button onClick={() => {
+                                            deleteItem(item.itemid)
+                                        }} className='bg-[#E16C68] text-white px-4 py-2 rounded-md w-1/2'> Delete </button>
                                     </div>
                                 </div>
                             ))}
@@ -154,12 +181,14 @@ const AdminAvailable = () => {
                                     <p className="flex w-1/5"> {item.title}</p>
                                     <p className="flex w-1/5"> {item.author} </p>
                                     <p className="flex w-1/5"> {item.itemid.substring(0, 19) + "..."} </p>
-                                    <div className="flex justify-between w-1/5 gap-4">
+                                    <div className="flex justify-between w-1/5 gap-2">
                                         <button onClick={() => {
                                             setShowUpdateModal(true)
                                             setItemid(item.itemid)
                                         }} className='bg-[#29E3B6] text-white px-4 py-2 rounded-md w-1/2'> Update </button>
-                                        <button className='bg-[#E16C68] text-white px-4 py-2 rounded-md w-1/2'> Delete </button>
+                                        <button onClick={() => {
+                                            deleteItem(item.itemid)
+                                        }} className='bg-[#E16C68] text-white px-4 py-2 rounded-md w-1/2'> Delete </button>
                                     </div>
                                 </div>
                             ))}
@@ -175,12 +204,14 @@ const AdminAvailable = () => {
                                     <p className="flex w-1/5"> {item.title}</p>
                                     <p className="flex w-1/5"> {item.author} </p>
                                     <p className="flex w-1/5"> {item.itemid.substring(0, 19) + "..."} </p>
-                                    <div className="flex justify-between w-1/5 gap-4">
+                                    <div className="flex justify-between w-1/5 gap-2">
                                         <button onClick={() => {
                                             setShowUpdateModal(true)
                                             setItemid(item.itemid)
                                         }} className='bg-[#29E3B6] text-white px-4 py-2 rounded-md w-1/2'> Update </button>
-                                        <button className='bg-[#E16C68] text-white px-4 py-2 rounded-md w-1/2'> Delete </button>
+                                        <button onClick={() => {
+                                            deleteItem(item.itemid)
+                                        }} className='bg-[#E16C68] text-white px-4 py-2 rounded-md w-1/2'> Delete </button>
                                     </div>
                                 </div>
                             ))}

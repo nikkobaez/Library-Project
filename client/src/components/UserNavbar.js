@@ -8,14 +8,14 @@ const AdminNavbar = () => {
     const navigate = useNavigate();
 
     // Admin Logout Function
-    const adminLogout = () => {
+    const userLogout = () => {
         setCurrentAuthenticatedId("");
         setCurrentFirstname("");
         setCurrentLastname("");
         setCurrentCart("");
         setCurrentStatus("");
         localStorage.clear();
-        navigate("/admin-login");
+        navigate("/user-login");
     }
 
     return (
@@ -28,13 +28,11 @@ const AdminNavbar = () => {
                 </div>
                 <div className='flex items-center justify-center gap-4 mr-6'>
                     <ul className='flex gap-6 mr-4'>
-                        <li onClick={() => navigate("/admin-dashboard-users")} className='text-white hover:cursor-pointer'> Users </li>
-                        <li onClick={() => navigate("/admin-dashboard-available")} className='text-white hover:cursor-pointer'> Available </li>
-                        <li onClick={() => navigate("/admin-dashboard-rented")} className='text-white hover:cursor-pointer'> Rented </li>
-                        <li onClick={() => navigate("/admin-dashboard-processing")}className='text-white hover:cursor-pointer'> Processing </li>
-                        <li className='text-white hover:cursor-pointer'> Reports </li>
+                        <li onClick={() => navigate("/user-dashboard-account")} className='text-white hover:cursor-pointer'> Account </li>
+                        <li onClick={() => navigate("/user-dashboard-balance")} className='text-white hover:cursor-pointer'> Balance </li>
+                        <li onClick={() => navigate("/user-dashboard-library")} className='text-white hover:cursor-pointer'> Library </li>
                     </ul>
-                    <button onClick={adminLogout} className='bg-[#00BBFF] text-white px-4 py-2 rounded-md'> Logout </button>
+                    <button onClick={userLogout} className='bg-[#00BBFF] text-white px-4 py-2 rounded-md'> Logout </button>
                 </div>
             </div>
 

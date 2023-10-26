@@ -100,7 +100,7 @@ const AdminUsers = () => {
             <div className="flex flex-col mx-6">
                 {/* Buttons */}
                 <div className="flex items-center justify-between">
-                    <div className="flex gap-6">
+                    <div className="flex gap-4">
                         <button onClick={() => setFilter("All Users")} className={`${filter === "All Users" ? "bg-[#00BBFF]" : "bg-[#7C829D]"} text-white px-4 py-2 rounded-md`}> All Users </button>
                         <button onClick={() => setFilter("Students")} className={`${filter === "Students" ? "bg-[#00BBFF]" : "bg-[#7C829D]"} text-white px-4 py-2 rounded-md`}> Students </button>
                         <button onClick={() => setFilter("Faculty")} className={`${filter === "Faculty" ? "bg-[#00BBFF]" : "bg-[#7C829D]"} text-white px-4 py-2 rounded-md`}> Faculty </button>
@@ -110,6 +110,25 @@ const AdminUsers = () => {
                         <FaPlus size={25} color='black' onClick={() => setShowAddModal(true)} className="hover:cursor-pointer"/>
                     </div>
                 </div>
+
+                {/* Empty Content */}
+                {filter === "All Users" && users.length === 0 && (
+                    <div className="flex items-center justify-center w-full my-10">
+                        <p> No Users </p>
+                    </div>
+                )}
+
+                {filter === "Students" && students.length === 0 && (
+                    <div className="flex items-center justify-center w-full my-10">
+                        <p> No Students </p>
+                    </div>
+                )}
+
+                {filter === "Faculty" && faculty.length === 0 && (
+                    <div className="flex items-center justify-center w-full my-10">
+                        <p> No Faculty </p>
+                    </div>
+                )}
 
                 {/* Content */}
                 <div className="flex flex-col gap-10 my-10">
@@ -122,7 +141,7 @@ const AdminUsers = () => {
                                     <p className="flex w-1/5"> {user.firstname + " " + user.lastname}</p>
                                     <p className="flex w-1/5"> {user.username} </p>
                                     <p className="flex w-1/5"> {user.userid.substring(0, 19) + "..."} </p>
-                                    <div className="flex justify-between w-1/5 gap-4">
+                                    <div className="flex justify-between w-1/5 gap-2">
                                         <button onClick={() => {
                                             setShowUpdateModal(true)
                                             setUserid(user.userid)
@@ -145,7 +164,7 @@ const AdminUsers = () => {
                                     <p className="flex w-1/5"> {user.firstname + " " + user.lastname}</p>
                                     <p className="flex w-1/5"> {user.username} </p>
                                     <p className="flex w-1/5"> {user.userid.substring(0, 19) + "..."} </p>
-                                    <div className="flex justify-between w-1/5 gap-4">
+                                    <div className="flex justify-between w-1/5 gap-2">
                                         <button onClick={() => {
                                             setShowUpdateModal(true)
                                             setUserid(user.userid)
@@ -168,7 +187,7 @@ const AdminUsers = () => {
                                     <p className="flex w-1/5"> {user.firstname + " " + user.lastname}</p>
                                     <p className="flex w-1/5"> {user.username} </p>
                                     <p className="flex w-1/5"> {user.userid.substring(0, 19) + "..."} </p>
-                                    <div className="flex justify-between w-1/5 gap-4">
+                                    <div className="flex justify-between w-1/5 gap-2">
                                         <button onClick={() => {
                                             setShowUpdateModal(true)
                                             setUserid(user.userid)

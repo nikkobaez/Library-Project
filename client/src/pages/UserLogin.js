@@ -8,7 +8,7 @@ const UserLogin = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginStatus, setLoginStatus] = useState("");
-    const { setCurrentAuthenticatedId, setCurrentFirstname, setCurrentLastname } = useContext(AuthContext);
+    const { setCurrentAuthenticatedId, setCurrentFirstname, setCurrentLastname, setCurrentStatus } = useContext(AuthContext);
     const navigate = useNavigate();
 
     // User Login Function
@@ -23,7 +23,8 @@ const UserLogin = () => {
                 setCurrentAuthenticatedId(response.data[0].userid);
                 setCurrentFirstname(response.data[0].firstname);
                 setCurrentLastname(response.data[0].lastname);
-                navigate("/user-home");
+                setCurrentStatus("User");
+                navigate("/user-dashboard-account");
             }
         }).catch((error) => {
             console.error(error);

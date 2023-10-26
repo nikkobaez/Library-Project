@@ -8,7 +8,7 @@ const AdminLogin = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginStatus, setLoginStatus] = useState("");
-    const { setCurrentAuthenticatedId, setCurrentFirstname, setCurrentLastname } = useContext(AuthContext);
+    const { setCurrentAuthenticatedId, setCurrentFirstname, setCurrentLastname, setCurrentStatus } = useContext(AuthContext);
     const navigate = useNavigate();
 
     // Admin Login Function
@@ -23,6 +23,7 @@ const AdminLogin = () => {
                 setCurrentAuthenticatedId(response.data[0].adminid);
                 setCurrentFirstname(response.data[0].firstname);
                 setCurrentLastname(response.data[0].lastname);
+                setCurrentStatus("Admin");
                 navigate("/admin-dashboard-users");
             }
         }).catch((error) => {

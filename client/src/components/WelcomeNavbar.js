@@ -1,6 +1,6 @@
 import { FaBookOpen } from 'react-icons/fa'
 
-const WelcomeNavbar = (props) => {
+const WelcomeNavbar = ({showLoginModal}) => {
     return (
         <div>
             <div className='w-screen h-20 bg-[#5494D4] flex justify-between items-center'>
@@ -15,7 +15,7 @@ const WelcomeNavbar = (props) => {
                         <li className='text-white hover:cursor-pointer'> Contact </li>
                         <li className='text-white hover:cursor-pointer'> Features </li>
                     </ul>
-                    <button onClick={props.showLoginModal} className='bg-[#00BBFF] text-white px-4 py-2 rounded-md'> Login </button>
+                    <button onClick={showLoginModal} className='bg-[#00BBFF] text-white px-4 py-2 rounded-md'> Login </button>
                 </div>
             </div>
         </div>
