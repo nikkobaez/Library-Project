@@ -20,20 +20,10 @@ const server = http.createServer((req, res) => {
 
     // GET Requests 
     if (req.method === "GET") {
-        // Heroku Setup
+        // Domain Setup Test
         if (req.url === "/") {
-            const filePath = path.join(__dirname, "../client/build/index.html");
-
-            fs.readFile(filePath, (err, data) => {
-                if (err) {
-                    res.writeHead(500, { 'Content-Type': 'text/plain' });
-                    res.end(err.message);
-                } else {
-                    res.writeHead(200, { 'Content-Type': 'text/html' });
-                    res.end(data);
-                }
-            });
-
+            res.setHeader('Content-Type', 'text/html');
+            res.end('<html><body>Hello, World!</body></html>');
         // Get All Users
         } else if (req.url === "/users") {
             db.query(
