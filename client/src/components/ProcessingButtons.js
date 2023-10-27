@@ -49,7 +49,7 @@ const ProcessingButtons = ({item}) => {
                 productid = "price_1O5OCWDZDYGFl6V3pn85CzCS";
             }
 
-            axios.post("http://localhost:3001/addtobalance", {
+            axios.post("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/addtobalance", {
                 feeid: uuid(),
                 borrowerid: item.borrowerid,
                 name: item.name,
@@ -60,14 +60,14 @@ const ProcessingButtons = ({item}) => {
                 damagedamount: damagedamount,
                 productid: productid,
             }).then((response) => {
-                axios.post("http://localhost:3001/addtoavailable", {
+                axios.post("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/addtoavailable", {
                     itemid: item.itemid,
                     title: item.title,
                     author: item.author,
                     cover: item.cover,
                     type: item.type,
                 }).then((response) => {
-                    axios.delete("http://localhost:3001/processing/" + item.processingid)
+                    axios.delete("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/processing/" + item.processingid)
                     .then((response) => {
                         console.log(response);
                     }).catch((error) => {
@@ -81,14 +81,14 @@ const ProcessingButtons = ({item}) => {
                 console.log(error)
             })
         } else {
-            axios.post("http://localhost:3001/addtoavailable", {
+            axios.post("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/addtoavailable", {
                 itemid: item.itemid,
                 title: item.title,
                 author: item.author,
                 cover: item.cover,
                 type: item.type,
             }).then((response) => {
-                axios.delete("http://localhost:3001/processing/" + item.processingid)
+                axios.delete("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/processing/" + item.processingid)
                 .then((response) => {
                     console.log(response);
                 }).catch((error) => {

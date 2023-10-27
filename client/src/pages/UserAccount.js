@@ -21,7 +21,7 @@ const UserAccount = () => {
     // Get All Users Items From Rented
     useEffect(() => {
         const getAllItems = async () => {
-            axios.post("http://localhost:3001/rented", {
+            axios.post("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/rented", {
                 borrowerid: currentAuthenticatedId,
             }).then((response) => {
                 console.log(response.data);
@@ -35,7 +35,7 @@ const UserAccount = () => {
 
     // Return An Item
     const returnItem = async (item) => {
-        axios.post("http://localhost:3001/addtoprocessing", {
+        axios.post("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/addtoprocessing", {
             processingid: uuid(),
             borrowerid: currentAuthenticatedId,
             name: currentFirstname + " " + currentLastname,
@@ -45,7 +45,7 @@ const UserAccount = () => {
             cover: item.cover,
             type: item.type,
         }).then((response) => {
-            axios.delete("http://localhost:3001/rented/" + item.rentedid)
+            axios.delete("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/rented/" + item.rentedid)
             .then((response) => {
                 console.log(response);
             }).catch((error) => {

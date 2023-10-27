@@ -19,7 +19,7 @@ const AdminProcessing = () => {
     // Get All Items From Processing
     useEffect(() => {
         const getAllItems = async () => {
-            axios.get("http://localhost:3001/processing")
+            axios.get("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/processing")
             .then((response) => {
                 console.log(response.data)
                 setProcessing(response.data)

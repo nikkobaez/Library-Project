@@ -18,7 +18,7 @@ const AdminRented = () => {
     // Get All Items From Rented
     useEffect(() => {
         const getAllItems = async () => {
-            axios.get("http://localhost:3001/rented")
+            axios.get("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/rented")
             .then((response) => {
                 console.log(response.data)
                 setRented(response.data)

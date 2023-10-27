@@ -22,7 +22,7 @@ const UserBalance = () => {
     // Get All Users Fees From Balances
     useEffect(() => {
         const getAllFees = async () => {
-            axios.post("http://localhost:3001/balance", {
+            axios.post("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/balance", {
                 borrowerid: currentAuthenticatedId,
             }).then((response) => {
                 console.log(response.data);

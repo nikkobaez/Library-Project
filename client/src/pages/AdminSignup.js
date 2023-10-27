@@ -16,13 +16,13 @@ const AdminSignup = () => {
     // Admin Sign Up Function
     const adminSignup = async () => {
         if (secretkey === "umarocks") {
-            axios.post("http://localhost:3001/admincheck", {
+            axios.post("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/admincheck", {
                 username: username 
             }).then((response) => {
                 if (response.data.message === "Admin already exists") {
                     setSignupStatus("Admin already exists")
                 } else {
-                    axios.post('http://localhost:3001/adminsignup', {
+                    axios.post('https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/adminsignup', {
                         adminid: uuid(),
                         firstname: firstname,
                         lastname: lastname,

@@ -26,7 +26,7 @@ const AdminAvailable = () => {
 
     // Add An Item To Available
     const addItem = async () => {
-        axios.post("http://localhost:3001/addtoavailable", {
+        axios.post("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/addtoavailable", {
             itemid: uuid(),
             title: title,
             author: author,
@@ -43,7 +43,7 @@ const AdminAvailable = () => {
     // Get All Items From Available
     useEffect(() => {
         const getAllItems = async () => {
-            axios.get("http://localhost:3001/available")
+            axios.get("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/available")
             .then((response) => {
                 console.log(response.data);
                 setAvailable(response.data);
@@ -56,7 +56,7 @@ const AdminAvailable = () => {
 
     // Update An Item In Available
     const updateItem = async () => {
-        axios.put("http://localhost:3001/available/" + itemid, {
+        axios.put("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/available/" + itemid, {
             itemid: itemid,
             title: title,
             author: author,
@@ -72,7 +72,7 @@ const AdminAvailable = () => {
 
     // Delete An Item From Available
     const deleteItem = async (itemid) => {
-        axios.delete("http://localhost:3001/available/" + itemid)
+        axios.delete("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/available/" + itemid)
         .then((response) => {
             console.log(response);
             window.location.reload();

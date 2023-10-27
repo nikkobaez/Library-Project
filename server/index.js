@@ -1,26 +1,23 @@
 const http = require('http');
-const fs = require("fs");
 const url = require('url');
-const path = require("path");
-const mysql = require("mysql2");
+const db = require("./config/db");
 
-// Connect To Database
-const db = mysql.createConnection({
-    user: "root",
-    host: "localhost",
-    password: "password",
-    database: "library",
-});
 
 // Create A Server
 const server = http.createServer((req, res) => {
-
     // Handle Cors Function To Allow Axios
     handleCors(req, res);
 
     // GET Requests 
     if (req.method === "GET") {
-        if (req.url === "/users") {
+        if (req.url === "/") {
+            res.setHeader('Content-Type', 'text/html');
+            res.write('<html><head><title>Hello, World!</title></head><body><h1>Hello, World!</h1></body></html>');
+            res.end();
+        }
+
+        // Get ALl Users
+        else if (req.url === "/users") {
             db.query(
                 "SELECT * FROM users",
                 (error, result) => {
@@ -165,7 +162,7 @@ const server = http.createServer((req, res) => {
                         if (error) {
                             console.log(error);
                             res.writeHead(500, {"Content-Type": "application/json"});
-                            res.end(JSON.stringify({error: error}));
+                            res.end(JSON.stringify({error: "Do we get this far?"}));
                         } else {
                             res.writeHead(200, {"Content-Type": "application/json"});
                             res.end(JSON.stringify({ message: "User has signed up successfully" }));
@@ -625,7 +622,7 @@ const server = http.createServer((req, res) => {
                 );
             });
         }
-    }
+    } 
 });
 
 // Handle Cors Function To Allow Axios
@@ -642,7 +639,7 @@ const handleCors = (req, res) => {
 };
 
 // Set Up Server To Listen For Requests From Port 3001
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
 });

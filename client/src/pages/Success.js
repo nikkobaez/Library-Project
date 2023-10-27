@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import axios from 'axios';
@@ -9,13 +9,13 @@ const Success = () => {
 
     // Delete A Fee From Balance
     useEffect(() => {
-        axios.delete("http://localhost:3001/balance/" + currentCart)
+        axios.delete("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/balance/" + currentCart)
         .then((response) => {
             setCurrentCart("");
         }).catch((error) => {
             console.log(error)
         })
-    }, [])
+    }, [currentCart, setCurrentCart])
 
     return (
         <div className="flex items-center justify-center w-screen h-screen">

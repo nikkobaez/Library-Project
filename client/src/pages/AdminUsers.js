@@ -27,13 +27,13 @@ const AdminUsers = () => {
 
     // Add A User
     const addUser = async () => {
-        axios.post("http://localhost:3001/usercheck", {
+        axios.post("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/usercheck", {
             username: username
         }).then((response) => {
             if (response.data.message === "User already exists") {
                 setAddUserStatus("User already exists");
             } else {
-                axios.post("http://localhost:3001/usersignup", {
+                axios.post("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/usersignup", {
                     userid: uuid(),
                     firstname: firstname,
                     lastname: lastname,
@@ -55,7 +55,7 @@ const AdminUsers = () => {
     // Get All Users
     useEffect(() => {
         const getAllUsers = async () => {
-            axios.get("http://localhost:3001/users")
+            axios.get("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/users")
             .then((response) => {
                 console.log(response.data)
                 setUsers(response.data)
@@ -68,7 +68,7 @@ const AdminUsers = () => {
 
     // Update A User
     const updateUser = async () => {
-        axios.put("http://localhost:3001/users/" + userid, {
+        axios.put("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/users/" + userid, {
             userid: userid,
             firstname: firstname,
             lastname: lastname,
@@ -85,7 +85,7 @@ const AdminUsers = () => {
 
     // Delete A User
     const deleteUser = async (userid) => {
-        axios.delete("http://localhost:3001/users/" + userid)
+        axios.delete("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/users/" + userid)
         .then((response) => {
             console.log(response);
             window.location.reload();

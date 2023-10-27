@@ -23,7 +23,7 @@ const UserLibrary = () => {
     // Get All Items From Available
     useEffect(() => {
         const getAllItems = async () => {
-            axios.get("http://localhost:3001/available")
+            axios.get("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/available")
             .then((response) => {
                 console.log(response.data);
                 setAvailable(response.data);
@@ -36,7 +36,7 @@ const UserLibrary = () => {
 
     // Rent An Item
     const rentItem = async (item) => {
-        axios.post("http://localhost:3001/addtorented", {
+        axios.post("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/addtorented", {
             rentedid: uuid(),
             borrowerid: currentAuthenticatedId,
             name: currentFirstname + " " + currentLastname,
@@ -46,7 +46,7 @@ const UserLibrary = () => {
             cover: item.cover,
             type: item.type,
         }).then((response) => {
-            axios.delete("http://localhost:3001/available/" + item.itemid)
+            axios.delete("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/available/" + item.itemid)
             .then((response) => {
                 console.log(response);
             }).catch((error) => {

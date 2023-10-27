@@ -15,13 +15,13 @@ const UserSignup = () => {
 
     // User Sign Up Function
     const userSignup = async () => {
-        axios.post('http://localhost:3001/usercheck', {
+        axios.post('https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/usercheck', {
             username: username
         }).then((response) => {
             if (response.data.message === "User already exists") {
                 setSignupStatus("User already exists");
             } else {
-                axios.post('http://localhost:3001/usersignup', {
+                axios.post('https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/usersignup', {
                     userid: uuid(),
                     firstname: firstname,
                     lastname: lastname,

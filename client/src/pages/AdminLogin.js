@@ -13,7 +13,7 @@ const AdminLogin = () => {
 
     // Admin Login Function
     const adminLogin = async () => {
-        axios.post('http://localhost:3001/adminlogin', {
+        axios.post('https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/adminlogin', {
             username: username, 
             password: password,
         }).then((response) => {
