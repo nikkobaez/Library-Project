@@ -17,7 +17,10 @@ const AdminUsers = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [status, setStatus] = useState("Student");
+    const [datesignedup, setDatesignedup] = useState(0);
+    const newdatesignedup = new Date().getTime();
     const [addUserStatus, setAddUserStatus] = useState("");
+    
 
     // Filter and Content Variables
     const [filter, setFilter] = useState("All Users"); 
@@ -40,6 +43,7 @@ const AdminUsers = () => {
                     status: status,
                     username: username, 
                     password: password,
+                    datesignedup, newdatesignedup,
                 }).then((response) => {
                     console.log(response);
                 }).catch((error) => {
@@ -75,6 +79,7 @@ const AdminUsers = () => {
             status: status,
             username: username, 
             password: password,
+            datesignedup: datesignedup,
         }).then((response) => {
             console.log(response);
             window.location.reload();
@@ -145,6 +150,7 @@ const AdminUsers = () => {
                                         <button onClick={() => {
                                             setShowUpdateModal(true)
                                             setUserid(user.userid)
+                                            setDatesignedup(user.datesignedup)
                                         }} className='bg-[#29E3B6] text-white px-4 py-2 rounded-md w-1/2'> Update </button>
                                         <button onClick={() => {
                                             deleteUser(user.userid)}
@@ -168,6 +174,7 @@ const AdminUsers = () => {
                                         <button onClick={() => {
                                             setShowUpdateModal(true)
                                             setUserid(user.userid)
+                                            setDatesignedup(user.datesignedup)
                                         }} className='bg-[#29E3B6] text-white px-4 py-2 rounded-md w-1/2'> Update </button>
                                         <button onClick={() => {
                                             deleteUser(user.userid)}
@@ -191,6 +198,7 @@ const AdminUsers = () => {
                                         <button onClick={() => {
                                             setShowUpdateModal(true)
                                             setUserid(user.userid)
+                                            setDatesignedup(user.datesignedup)
                                         }} className='bg-[#29E3B6] text-white px-4 py-2 rounded-md w-1/2'> Update </button>
                                         <button onClick={() => {
                                             deleteUser(user.userid)}

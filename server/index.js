@@ -167,10 +167,11 @@ const server = http.createServer((req, res) => {
                 const status = body.status;
                 const username = body.username;
                 const password = body.password;
+                const datesignedup = body.datesignedup;
                 
                 db.query(
-                    "INSERT INTO users (userid, firstname, lastname, status, username, password) VALUES (?, ?, ?, ?, ?, ?)",
-                    [userid, firstname, lastname, status, username, password],
+                    "INSERT INTO users (userid, firstname, lastname, status, username, password, datesignedup) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    [userid, firstname, lastname, status, username, password, datesignedup],
                     (error) => {
                         if (error) {
                             console.log(error);
@@ -624,8 +625,8 @@ const server = http.createServer((req, res) => {
                 const body = JSON.parse(data);
 
                 db.query(
-                    "UPDATE users SET `firstname` = ?, `lastname` = ?, `status` = ?, `username` = ?, `password` = ? WHERE `userid` = ?",
-                    [body.firstname, body.lastname, body.status, body.username, body.password, userid],
+                    "UPDATE users SET `firstname` = ?, `lastname` = ?, `status` = ?, `username` = ?, `password` = ?, `datesignedup` = ? WHERE `userid` = ?",
+                    [body.firstname, body.lastname, body.status, body.username, body.password, body.datesignedup, userid],
                     (error) => {
                         if (error) {
                             res.writeHead(500, { 'Content-Type': 'application/json' });
