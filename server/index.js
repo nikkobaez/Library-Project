@@ -75,6 +75,19 @@ const server = http.createServer((req, res) => {
                     }
                 }
             );
+        } else if (req.url === "/contact") {
+            db.query(
+                "SELECT * FROM contact",
+                (error, result) => {
+                    if (error) {
+                        res.writeHead(500, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify({ error: error }));
+                    } else {
+                        res.writeHead(200, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify(result));
+                    }
+                }
+            );
         }
 
     // POST Requests
@@ -302,6 +315,7 @@ const server = http.createServer((req, res) => {
             req.on("end", () => {
                 const body = JSON.parse(data);
                 const rentedid = body.rentedid;
+                const duedatems = body.duedatems;
                 const borrowerid = body.borrowerid;
                 const name = body.name;
                 const itemid = body.itemid;
@@ -311,8 +325,8 @@ const server = http.createServer((req, res) => {
                 const type = body.type;
                 
                 db.query(
-                    "INSERT INTO rented (rentedid, borrowerid, name, itemid, title, author, cover, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                    [rentedid, borrowerid, name, itemid, title, author, cover, type],
+                    "INSERT INTO rented (rentedid, duedatems, borrowerid, name, itemid, title, author, cover, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    [rentedid, duedatems, borrowerid, name, itemid, title, author, cover, type],
                     (error) => {
                         if (error) {
                             console.log(error);
@@ -336,6 +350,7 @@ const server = http.createServer((req, res) => {
             req.on("end", () => {
                 const body = JSON.parse(data);
                 const processingid = body.processingid;
+                const duedatems = body.duedatems;
                 const borrowerid = body.borrowerid;
                 const name = body.name;
                 const itemid = body.itemid;
@@ -345,8 +360,8 @@ const server = http.createServer((req, res) => {
                 const type = body.type;
                 
                 db.query(
-                    "INSERT INTO processing (processingid, borrowerid, name, itemid, title, author, cover, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                    [processingid, borrowerid, name, itemid, title, author, cover, type],
+                    "INSERT INTO processing (processingid, duedatems, borrowerid, name, itemid, title, author, cover, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    [processingid, duedatems, borrowerid, name, itemid, title, author, cover, type],
                     (error) => {
                         if (error) {
                             console.log(error);
@@ -464,7 +479,35 @@ const server = http.createServer((req, res) => {
                 }
             });
 
+        // Add A Message To Contact 
+        } else if (req.url === "/addtocontact") {
+            let data = "";
+            req.on("data", (chunk) => {
+                data += chunk;
+            });
 
+            req.on("end", () => {
+                const body = JSON.parse(data);
+                const contactid = body.contactid;
+                const name = body.name;
+                const email = body.email;
+                const message = body.message;
+                
+                db.query(
+                    "INSERT INTO contact (contactid, name, email, message) VALUES (?, ?, ?, ?)",
+                    [contactid, name, email, message],
+                    (error) => {
+                        if (error) {
+                            console.log(error);
+                            res.writeHead(500, {"Content-Type": "application/json"});
+                            res.end(JSON.stringify({error: error}));
+                        } else {
+                            res.writeHead(200, {"Content-Type": "application/json"});
+                            res.end(JSON.stringify({ message: "Message have been added successfully to contact" }));
+                        }
+                    }
+                );
+            });
         }
     
     // DELETE Requests

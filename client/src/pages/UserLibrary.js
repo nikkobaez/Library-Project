@@ -17,6 +17,7 @@ const UserLibrary = () => {
     const books = available.filter(item => item.type === "Book");
     const media = available.filter(item => item.type === "Media");
     const devices = available.filter(item => item.type === "Device");
+    const duedatems = new Date().getTime() + 86400000 * 7;
     const { currentAuthenticatedId, currentFirstname, currentLastname} = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -38,6 +39,7 @@ const UserLibrary = () => {
     const rentItem = async (item) => {
         axios.post("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/addtorented", {
             rentedid: uuid(),
+            duedatems: duedatems,
             borrowerid: currentAuthenticatedId,
             name: currentFirstname + " " + currentLastname,
             itemid: item.itemid,

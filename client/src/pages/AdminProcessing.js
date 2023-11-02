@@ -3,8 +3,8 @@ import { Link } from 'react-scroll'
 import { FaSearch } from 'react-icons/fa'
 import { FaXmark } from 'react-icons/fa6'
 import axios from 'axios';
-import AdminNavbar from '../components/AdminNavbar'
-import ProcessingButtons from '../components/ProcessingButtons';
+import AdminNavbar from '../components/AdminNavbar';
+import AdminProcessingButtons from '../components/AdminProcessingButtons';
 
 const AdminProcessing = () => {
     // Variables
@@ -84,7 +84,7 @@ const AdminProcessing = () => {
                                     <p className="flex w-1/5"> {item.name} </p>
                                     <p className="flex w-1/5"> {item.processingid.substring(0, 19) + "..."} </p>
                                     <div className="flex justify-between w-1/5 gap-2">
-                                        <ProcessingButtons item={item}/>
+                                        <AdminProcessingButtons item={item}/>
                                     </div>
                                 </div>
                             ))}
@@ -102,7 +102,7 @@ const AdminProcessing = () => {
                                     <p className="flex w-1/5"> {item.name} </p>
                                     <p className="flex w-1/5"> {item.processingid.substring(0, 19) + "..."} </p>
                                     <div className="flex justify-between w-1/5 gap-2">
-                                        <ProcessingButtons item={item}/>
+                                        <AdminProcessingButtons item={item}/>
                                     </div>
                                 </div>
                             ))}
@@ -120,7 +120,7 @@ const AdminProcessing = () => {
                                     <p className="flex w-1/5"> {item.name} </p>
                                     <p className="flex w-1/5"> {item.processingid.substring(0, 19) + "..."} </p>
                                     <div className="flex justify-between w-1/5 gap-2">
-                                        <ProcessingButtons item={item}/>
+                                        <AdminProcessingButtons item={item}/>
                                     </div>
                                 </div>
                             ))}
@@ -138,7 +138,7 @@ const AdminProcessing = () => {
                                     <p className="flex w-1/5"> {item.name} </p>
                                     <p className="flex w-1/5"> {item.processingid.substring(0, 19) + "..."} </p>
                                     <div className="flex justify-between w-1/5 gap-2">
-                                        <ProcessingButtons />
+                                        <AdminProcessingButtons />
                                     </div>
                                 </div>
                             ))}

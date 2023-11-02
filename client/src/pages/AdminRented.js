@@ -4,6 +4,7 @@ import { FaSearch } from 'react-icons/fa'
 import { FaXmark } from 'react-icons/fa6'
 import axios from 'axios';
 import AdminNavbar from '../components/AdminNavbar'
+import AdminRentedButtons from '../components/AdminRentedButtons';
 
 const AdminRented = () => {
     // Variables
@@ -82,6 +83,9 @@ const AdminRented = () => {
                                     <p className="flex w-1/5"> {item.title}</p>
                                     <p className="flex w-1/5"> {item.name} </p>
                                     <p className="flex w-1/5"> {item.rentedid.substring(0, 19) + "..."} </p>
+                                    <div className="flex w-1/5">
+                                        <AdminRentedButtons item={item}/>
+                                    </div>
                                 </div>
                             ))}
                         </>
@@ -94,7 +98,6 @@ const AdminRented = () => {
                                 <div name={item.itemid} key={item.itemid} className='flex items-center justify-between gap-10'>
                                     <p className="bg-[#E1EAFF] h-12 w-12 rounded-full flex justify-center items-center"> {item.type[0]}</p>
                                     <p className="flex w-1/5"> {item.title}</p>
-                                    <p className="flex w-1/5"> {item.author} </p>
                                     <p className="flex w-1/5"> {item.name} </p>
                                     <p className="flex w-1/5"> {item.rentedid.substring(0, 19) + "..."} </p>
                                 </div>
@@ -109,7 +112,6 @@ const AdminRented = () => {
                                 <div name={item.itemid} key={item.itemid} className='flex items-center justify-between gap-10'>
                                     <p className="bg-[#E1EAFF] h-12 w-12 rounded-full flex justify-center items-center"> {item.type[0]}</p>
                                     <p className="flex w-1/5"> {item.title}</p>
-                                    <p className="flex w-1/5"> {item.author} </p>
                                     <p className="flex w-1/5"> {item.name} </p>
                                     <p className="flex w-1/5"> {item.rentedid.substring(0, 19) + "..."} </p>
                                 </div>
@@ -124,7 +126,6 @@ const AdminRented = () => {
                                 <div name={item.itemid} key={item.itemid} className='flex items-center justify-between gap-10'>
                                     <p className="bg-[#E1EAFF] h-12 w-12 rounded-full flex justify-center items-center"> {item.type[0]}</p>
                                     <p className="flex w-1/5"> {item.title}</p>
-                                    <p className="flex w-1/5"> {item.author} </p>
                                     <p className="flex w-1/5"> {item.name} </p>
                                     <p className="flex w-1/5"> {item.rentedid.substring(0, 19) + "..."} </p>
                                 </div>

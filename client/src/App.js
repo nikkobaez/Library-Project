@@ -15,6 +15,8 @@ import AdminProcessing from "./pages/AdminProcessing";
 import Success from "./pages/Success";
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
 import UserProtectedRoute from "./components/UserProtectedRoute";
+import AdminMessages from "./pages/AdminMessages";
+import Contact from "./pages/Contact";
 
 function App() {
     return (
@@ -24,6 +26,7 @@ function App() {
                     {/* Basic Routes */}
                     <Route path="/" element={<Welcome />}/>
                     <Route path="/success" element={<Success />}/>
+                    <Route path="/contact" element={<Contact />}/>
 
                     {/* User Routes */}
                     <Route path="/user-login" element={<UserLogin />}/>
@@ -65,6 +68,11 @@ function App() {
                     <Route path="/admin-dashboard-processing" element={
                         <AdminProtectedRoute>
                             <AdminProcessing/>
+                        </AdminProtectedRoute>
+                    }/>
+                    <Route path="/admin-dashboard-messages" element={
+                        <AdminProtectedRoute>
+                            <AdminMessages/>
                         </AdminProtectedRoute>
                     }/>
                 </Routes>

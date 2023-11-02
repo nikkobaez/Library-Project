@@ -1,6 +1,9 @@
 import { FaBookOpen } from 'react-icons/fa'
+import { useNavigate } from "react-router-dom";
 
 const WelcomeNavbar = ({showLoginModal}) => {
+    const navigate = useNavigate();
+
     return (
         <div>
             <div className='w-screen h-20 bg-[#5494D4] flex justify-between items-center'>
@@ -12,7 +15,7 @@ const WelcomeNavbar = ({showLoginModal}) => {
                     <ul className='flex gap-6 mr-4'>
                         <li className='text-white hover:cursor-pointer'> Home </li>
                         <li className='text-white hover:cursor-pointer'> About </li>
-                        <li className='text-white hover:cursor-pointer'> Contact </li>
+                        <li onClick={() => navigate("/contact")} className='text-white hover:cursor-pointer'> Contact </li>
                         <li className='text-white hover:cursor-pointer'> Features </li>
                     </ul>
                     <button onClick={showLoginModal} className='bg-[#00BBFF] text-white px-4 py-2 rounded-md'> Login </button>

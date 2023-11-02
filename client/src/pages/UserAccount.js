@@ -37,6 +37,7 @@ const UserAccount = () => {
     const returnItem = async (item) => {
         axios.post("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/addtoprocessing", {
             processingid: uuid(),
+            duedatems: item.duedatems,
             borrowerid: currentAuthenticatedId,
             name: currentFirstname + " " + currentLastname,
             itemid: item.itemid,

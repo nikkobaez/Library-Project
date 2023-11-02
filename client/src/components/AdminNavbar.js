@@ -31,8 +31,9 @@ const AdminNavbar = () => {
                         <li onClick={() => navigate("/admin-dashboard-users")} className='text-white hover:cursor-pointer'> Users </li>
                         <li onClick={() => navigate("/admin-dashboard-available")} className='text-white hover:cursor-pointer'> Available </li>
                         <li onClick={() => navigate("/admin-dashboard-rented")} className='text-white hover:cursor-pointer'> Rented </li>
-                        <li onClick={() => navigate("/admin-dashboard-processing")}className='text-white hover:cursor-pointer'> Processing </li>
+                        <li onClick={() => navigate("/admin-dashboard-processing")} className='text-white hover:cursor-pointer'> Processing </li>
                         <li className='text-white hover:cursor-pointer'> Reports </li>
+                        <li onClick={() => navigate("/admin-dashboard-messages")} className='text-white hover:cursor-pointer'> Messages </li>
                     </ul>
                     <button onClick={adminLogout} className='bg-[#00BBFF] text-white px-4 py-2 rounded-md'> Logout </button>
                 </div>
