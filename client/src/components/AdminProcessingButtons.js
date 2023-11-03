@@ -16,9 +16,11 @@ const AdminProcessingButtons = ({item}) => {
         if (dayscalculation < 0) {
             setLateDays(Math.abs(dayscalculation));
             setLateStatus(`Due In ${Math.round(lateDays)} Days`)
+            setIsLate(false);
         } else {
             setLateDays(dayscalculation);
             setLateStatus(`Overdue By ${Math.round(lateDays)} Days`)
+            setIsLate(false);
         }
     }, [dayscalculation, lateDays])
 

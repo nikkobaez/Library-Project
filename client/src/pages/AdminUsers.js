@@ -43,7 +43,7 @@ const AdminUsers = () => {
                     status: status,
                     username: username, 
                     password: password,
-                    datesignedup, newdatesignedup,
+                    datesignedup: newdatesignedup,
                 }).then((response) => {
                     console.log(response);
                 }).catch((error) => {

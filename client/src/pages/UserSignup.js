@@ -11,7 +11,7 @@ const UserSignup = () => {
     const [password, setPassword] = useState("");
     const [status, setStatus] = useState("Student");
     const [signupStatus, setSignupStatus] = useState("");
-    const datesignedup = new Date().getTime()
+    const datesignedup = new Date().getTime();
     const navigate = useNavigate();
 
     // User Sign Up Function
