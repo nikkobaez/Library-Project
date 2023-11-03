@@ -13,10 +13,9 @@ const WelcomeNavbar = ({showLoginModal}) => {
                 </div>
                 <div className='flex items-center justify-center gap-4 mr-6'>
                     <ul className='flex gap-6 mr-4'>
-                        <li className='text-white hover:cursor-pointer'> Home </li>
-                        <li className='text-white hover:cursor-pointer'> About </li>
+                        <li onClick={() => navigate("/")} className='text-white hover:cursor-pointer'> Home </li>
+                        <li onClick={() => navigate("/about")} className='text-white hover:cursor-pointer'> About </li>
                         <li onClick={() => navigate("/contact")} className='text-white hover:cursor-pointer'> Contact </li>
-                        <li className='text-white hover:cursor-pointer'> Features </li>
                     </ul>
                     <button onClick={showLoginModal} className='bg-[#00BBFF] text-white px-4 py-2 rounded-md'> Login </button>
                 </div>

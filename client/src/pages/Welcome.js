@@ -7,16 +7,21 @@ const Welcome = () => {
     const [showLoginModal, setShowLoginModal] = useState(false);
     const navigate = useNavigate();
 
-    const futurems = new Date().getTime() + 86400000 * 7
-
-
-
-
     return (
         <div>
             <WelcomeNavbar showLoginModal={() => setShowLoginModal(true)}/>
 
-            {futurems.toLocaleString()}
+            <div className="flex flex-col items-center justify-center h-screen mt-5">
+                <h1>Welcome to Book Nook!</h1>
+                <div className="text-center">
+                    <p>The website to access the university library</p>
+                    <ul>
+                        <li>Home: brings you back to this page</li>
+                        <li>About: takes you to the about page</li>
+                        <li>Contact: allows you to contact employees for any questions or FAQs</li>
+                    </ul>
+                </div>
+            </div>
 
             {/* Login Modal */}
             {showLoginModal && (
