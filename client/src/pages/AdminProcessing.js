@@ -101,7 +101,7 @@ const AdminProcessing = () => {
                                     <p className="flex w-1/5"> {item.author} </p>
                                     <p className="flex w-1/5"> {item.name} </p>
                                     <p className="flex w-1/5"> {item.processingid.substring(0, 19) + "..."} </p>
-                                    <div className="flex justify-between w-1/5 gap-2">
+                                    <div className="flex flex-col justify-between w-1/5 gap-2">
                                         <AdminProcessingButtons item={item}/>
                                     </div>
                                 </div>
@@ -119,7 +119,7 @@ const AdminProcessing = () => {
                                     <p className="flex w-1/5"> {item.author} </p>
                                     <p className="flex w-1/5"> {item.name} </p>
                                     <p className="flex w-1/5"> {item.processingid.substring(0, 19) + "..."} </p>
-                                    <div className="flex justify-between w-1/5 gap-2">
+                                    <div className="flex flex-col justify-between w-1/5 gap-2">
                                         <AdminProcessingButtons item={item}/>
                                     </div>
                                 </div>
@@ -137,7 +137,7 @@ const AdminProcessing = () => {
                                     <p className="flex w-1/5"> {item.author} </p>
                                     <p className="flex w-1/5"> {item.name} </p>
                                     <p className="flex w-1/5"> {item.processingid.substring(0, 19) + "..."} </p>
-                                    <div className="flex justify-between w-1/5 gap-2">
+                                    <div className="flex flex-col justify-between w-1/5 gap-2">
                                         <AdminProcessingButtons />
                                     </div>
                                 </div>

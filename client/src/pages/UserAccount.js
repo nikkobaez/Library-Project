@@ -6,6 +6,7 @@ import { FaXmark } from 'react-icons/fa6'
 import UserNavbar from '../components/UserNavbar';
 import uuid from 'react-uuid';
 import axios from 'axios';
+import UserAccountButtons from '../components/UserAccountButtons';
 
 const UserAccount = () => {
     // Variables
@@ -112,6 +113,7 @@ const UserAccount = () => {
                                     </div>
                                     <p> {item.title} </p>
                                     <p> { "By: " + item.author}</p>
+                                    <UserAccountButtons item={item}/>
                                     <button onClick={() => returnItem(item)} className='bg-[#29E3B6] text-white px-4 py-2 rounded-md w-full'> Return </button>
                                 </div>
                             ))}
@@ -128,6 +130,7 @@ const UserAccount = () => {
                                     </div>
                                     <p> {item.title} </p>
                                     <p> { "By: " + item.author}</p>
+                                    <UserAccountButtons item={item}/>
                                     <button onClick={() => returnItem(item)} className='bg-[#29E3B6] text-white px-4 py-2 rounded-md w-full'> Return </button>
                                 </div>
                             ))}
@@ -144,6 +147,7 @@ const UserAccount = () => {
                                     </div>
                                     <p> {item.title} </p>
                                     <p> { "By: " + item.author}</p>
+                                    <UserAccountButtons item={item}/>
                                     <button onClick={() => returnItem(item)} className='bg-[#29E3B6] text-white px-4 py-2 rounded-md w-full'> Return </button>
                                 </div>
                             ))}
@@ -160,6 +164,7 @@ const UserAccount = () => {
                                     </div>
                                     <p> {item.title} </p>
                                     <p> { "By: " + item.author}</p>
+                                    <UserAccountButtons item={item}/>
                                     <button onClick={() => returnItem(item)} className='bg-[#29E3B6] text-white px-4 py-2 rounded-md w-full'> Return </button>
                                 </div>
                             ))}

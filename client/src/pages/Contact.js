@@ -32,20 +32,28 @@ const Contact = () => {
         <div>
             <WelcomeNavbar showLoginModal={() => setShowLoginModal(true)}/>
 
-            <div>
-                <label style={{color: '#374151'}}>Name:</label><br/>
-                <input type="text" className="h-10 px-2 my-2 bg-gray-700 rounded-md" name="Name"  onChange = {(e) => setName(e.target.value)} />
-                <br/><br/>
+            <div className="flex flex-col items-center justify-center w-full">
+                <div className="flex flex-col items-center justify-center w-1/2 gap-4 p-10 mt-20 bg-white border-4 border-gray-200 rounded-lg">
+                   
+                    <p className="text-2xl font-bold"> Have a Question or Concern? </p>
 
-                <label style={{color: '#374151'}}>Email:</label><br/>
-                <input type="text" className="h-10 px-2 my-2 bg-gray-700 rounded-md" onChange = {(e) => setEmail(e.target.value)} />
-                <br/><br/>
+                    <div className="flex flex-col w-full">
+                        <label> Name: </label>
+                        <input type="text" className="w-full h-10 px-2 my-2 bg-gray-200 rounded-md" name="Name"  onChange = {(e) => setName(e.target.value)} />
+                    </div>
 
-                <label style={{color: '#374151'}}>What is your reason for contacting us?</label><br/>
-                <textarea rows={4} cols={40} onChange={(e) => setMessage(e.target.value)}/>
-                <br/><br/>
+                    <div className="flex flex-col w-full">
+                        <label> Email: </label>
+                        <input type="text" className="h-10 px-2 my-2 bg-gray-200 rounded-md" onChange = {(e) => setEmail(e.target.value)} />
+                    </div>
 
-                <button onClick={(addMessage)} className="w-20 bg-gray-700 rounded-md">Submit</button>
+                    <div className="flex flex-col w-full">
+                        <label> What is you reason for contacting us? </label>
+                        <textarea rows={4} cols={40} onChange={(e) => setMessage(e.target.value)} className="px-2 my-2 bg-gray-200 rounded-md"/>
+                    </div>
+
+                    <button onClick={(addMessage)} className="w-full h-10 px-2 my-2 text-white bg-blue-500 rounded-md ">Submit</button>
+                </div>
             </div>
 
             {/* Login Modal */}
@@ -55,8 +63,8 @@ const Contact = () => {
                         <div className="flex justify-end w-full p-4">
                             <FaXmark size={25} color="black" onClick={() => setShowLoginModal(false)} className="hover:cursor-pointer"/>
                         </div>
-                        <button onClick={() => navigate("/user-login")} className="w-3/4 h-10 px-2 my-2 text-white bg-blue-500 rounded-md "> User Login </button>
-                        <button onClick={() => navigate("/admin-login")} className="w-3/4 h-10 px-2 my-2 text-white bg-blue-500 rounded-md "> Admin Login </button>
+                        <button onClick={() => navigate("/user-login")} className="w-3/4 h-10 px-2 my-2 text-white bg-blue-500 rounded-md"> User Login </button>
+                        <button onClick={() => navigate("/admin-login")} className="w-3/4 h-10 px-2 my-2 text-white bg-blue-500 rounded-md"> Admin Login </button>
                     </div>
                 </div>
             )}

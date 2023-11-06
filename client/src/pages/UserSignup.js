@@ -12,6 +12,7 @@ const UserSignup = () => {
     const [status, setStatus] = useState("Student");
     const [signupStatus, setSignupStatus] = useState("");
     const datesignedup = new Date().getTime();
+    const fees = 0;
     const navigate = useNavigate();
 
     // User Sign Up Function
@@ -30,6 +31,7 @@ const UserSignup = () => {
                     username: username, 
                     password: password,
                     datesignedup: datesignedup,
+                    fees: fees,
                 }).then((response) => {
                     console.log(response);
                 }).catch((error) => {

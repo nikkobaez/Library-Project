@@ -168,10 +168,11 @@ const server = http.createServer((req, res) => {
                 const username = body.username;
                 const password = body.password;
                 const datesignedup = body.datesignedup;
+                const fees = body.fees;
                 
                 db.query(
-                    "INSERT INTO users (userid, firstname, lastname, status, username, password, datesignedup) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                    [userid, firstname, lastname, status, username, password, datesignedup],
+                    "INSERT INTO users (userid, firstname, lastname, status, username, password, datesignedup, fees) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                    [userid, firstname, lastname, status, username, password, datesignedup, fees],
                     (error) => {
                         if (error) {
                             console.log(error);
@@ -605,6 +606,25 @@ const server = http.createServer((req, res) => {
                     }
                 }
             );
+        } 
+        
+        // Delete A Message From Contact
+        else if (pathSegments.length === 3 && pathSegments[1] === "contact") {
+            const contactid = pathSegments[2];
+
+            db.query(
+                "DELETE FROM contact WHERE contactid = ?",
+                [contactid],
+                (error) => {
+                    if (error) {
+                        res.writeHead(500, {"Content-Type": "application/json"});
+                        res.end(JSON.stringify({error: error}));
+                    } else {
+                        res.writeHead(200, {"Content-Type": "application/json"});
+                        res.end(JSON.stringify({ message: "Message has been deleted successfully from contact" }));
+                    }
+                }
+            );
         }
     
     // PUT Requests
@@ -625,8 +645,8 @@ const server = http.createServer((req, res) => {
                 const body = JSON.parse(data);
 
                 db.query(
-                    "UPDATE users SET `firstname` = ?, `lastname` = ?, `status` = ?, `username` = ?, `password` = ?, `datesignedup` = ? WHERE `userid` = ?",
-                    [body.firstname, body.lastname, body.status, body.username, body.password, body.datesignedup, userid],
+                    "UPDATE users SET `firstname` = ?, `lastname` = ?, `status` = ?, `username` = ?, `password` = ?, `datesignedup` = ?, `fees` = ? WHERE `userid` = ?",
+                    [body.firstname, body.lastname, body.status, body.username, body.password, body.datesignedup, body.fees, userid],
                     (error) => {
                         if (error) {
                             res.writeHead(500, { 'Content-Type': 'application/json' });

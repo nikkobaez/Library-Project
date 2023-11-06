@@ -6,7 +6,6 @@ import axios from 'axios';
 const AdminMessages = () => {
     const [messages, setMessages] = useState([]);
 
-
     // Get All Messages From Contact
     useEffect(() => {
         const getAllMessages = async () => {
@@ -21,31 +20,49 @@ const AdminMessages = () => {
         getAllMessages();
     }, []);
 
-
+    // Delete A Message From Contact
+    const deleteMessage = async (contactid) => {
+        axios.delete("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/contact/" + contactid)
+        .then((response) => {
+            console.log(response);
+            window.location.reload();
+        }).catch((error) => {
+            console.log(error);
+        })
+    };
 
   return (
     <div>
 		<AdminNavbar />
-		<table>
-			<tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Message</th>
-                <th>Message ID</th>
-            </tr>
+        <div className="flex flex-col gap-10 my-10">
+            {/* Empty Content */}
+            {messages.length === 0 && (
+                <div className="flex items-center justify-center w-full my-10">
+                    No Messages
+                </div>
+            )}
 
-		</table>
+            {/* Content */}
+            {messages.length > 0 && (
+                <>
+                    {messages.map((message) => (
+                        <div key={message.contactid} className="flex flex-col mx-6">
+                            <div className="flex flex-col gap-6 p-4 bg-white border-4 border-gray-200 rounded-md">
+                                <p> Name: </p>
+                                <p> {message.name}</p>
 
-        {messages.map((message) => (
-            <table>
-				<tr>
-					<td>{message.name}</td>
-					<td>{message.email}</td>
-					<td>{message.message}</td>
-					<td>{message.contactid}</td>
-				</tr>
-			</table>
-        ))}
+                                <p> Email: </p>
+                                <p> {message.email}</p>
+                                
+                                <p> Message: </p>
+                                <p> {message.message}</p>
+                            </div>
+                            <button onClick={() => deleteMessage(message.contactid)} className="h-10 px-2 my-6 text-white bg-blue-500 rounded-md"> Delete Message </button>
+                        </div>
+                    ))}
+                </>
+            )}
+        </div>
     </div>
   )
 }
