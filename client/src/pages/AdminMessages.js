@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import AdminNavbar from '../components/AdminNavbar';
-import './AdminMessages.css'
 import axios from 'axios';
 
 const AdminMessages = () => {

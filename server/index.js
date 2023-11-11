@@ -75,6 +75,8 @@ const server = http.createServer((req, res) => {
                     }
                 }
             );
+        
+        // Get All Messages From Contact
         } else if (req.url === "/contact") {
             db.query(
                 "SELECT * FROM contact",
@@ -88,6 +90,36 @@ const server = http.createServer((req, res) => {
                     }
                 }
             );
+        
+        // Get Total Amount Spent By Each User
+        } else if (req.url === "/amountforallusers") {
+            db.query(
+                "SELECT users.userid, users.firstname, SUM(earnings.amount) AS totalamount FROM users LEFT JOIN earnings ON users.userid = earnings.borrowerid GROUP BY users.userid, users.firstname",
+                (error, result) => {
+                    if (error) {
+                        res.writeHead(500, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify({ error: error }));
+                    } else {
+                        res.writeHead(200, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify(result));
+                    }
+                }
+            )
+        
+        // Get Total Amount Earned From Each Item
+        } else if (req.url === "/amountforallitems") {
+            db.query(
+                "SELECT available.itemid, available.title, SUM(earnings.amount) AS totalamount FROM available LEFT JOIN earnings ON available.itemid = earnings.itemid GROUP BY available.itemid, available.title",
+                (error, result) => {
+                    if (error) {
+                        res.writeHead(500, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify({ error: error }));
+                    } else {
+                        res.writeHead(200, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify(result));
+                    }
+                }
+            )
         }
 
     // POST Requests
@@ -507,6 +539,58 @@ const server = http.createServer((req, res) => {
                             res.writeHead(200, {"Content-Type": "application/json"});
                             res.end(JSON.stringify({ message: "Message have been added successfully to contact" }));
                         }
+                    }
+                );
+            });
+        
+        // Get Total Amount Spent By One User
+        } else if (req.url === "/amountforoneuser") {
+            let data = "";
+            req.on("data", (chunk) => {
+                data += chunk;
+            });
+            
+            req.on("end", () => {
+                const body = JSON.parse(data);
+                const userid = body.userid;
+
+                db.query(
+                    "SELECT earnings.itemid, earnings.title, earnings.name, earnings.amount FROM earnings WHERE earnings.borrowerid = ?",
+                    [userid],
+                    (error, result) => {
+                        if (error) {
+                            res.writeHead(500, { "Content-Type": "application/json" });
+                            res.end(JSON.stringify({ error: error }));
+                        } else {
+                            res.writeHead(200, { "Content-Type": "application/json" });
+                            res.end(JSON.stringify(result));
+                        } 
+                    }
+                );
+            });
+        
+        // Get Total Amount Earned From One Item
+        } else if (req.url === "/amountforoneitem") {
+            let data = "";
+            req.on("data", (chunk) => {
+                data += chunk;
+            });
+            
+            req.on("end", () => {
+                const body = JSON.parse(data);
+                const itemid = body.itemid;
+
+                db.query(
+                    "SELECT earnings.borrowerid, earnings.title, earnings.name, earnings.amount FROM earnings WHERE earnings.itemid = ?",
+                    [itemid],
+                    (error, result) => {
+                        if (error) {
+                            res.writeHead(500, { "Content-Type": "application/json" });
+                            res.end(JSON.stringify({ error: error }));
+                        } else {
+                            res.writeHead(200, { "Content-Type": "application/json" });
+                            res.end(JSON.stringify(result));
+                        } 
                     }
                 );
             });
