@@ -54,7 +54,6 @@ export const AuthProvider = ({children}) => {
         localStorage.setItem("authenticatedId", JSON.stringify(currentAuthenticatedId));
         localStorage.setItem("firstname", JSON.stringify(currentFirstname));
         localStorage.setItem("lastname", JSON.stringify(currentLastname));
-        localStorage.setItem("lastname", JSON.stringify(currentLastname));
         localStorage.setItem("cart", JSON.stringify(currentCart));
         localStorage.setItem("status", JSON.stringify(currentStatus));
         localStorage.setItem("fees", JSON.stringify(currentFees));

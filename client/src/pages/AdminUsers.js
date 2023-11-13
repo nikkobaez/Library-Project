@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from "../context/AuthContext";
 import { Link } from 'react-scroll'
-import { FaSearch, FaPlus } from 'react-icons/fa'
+import { FaSearch, FaPlus, FaSkull } from 'react-icons/fa'
 import { FaXmark } from 'react-icons/fa6'
 import uuid from 'react-uuid';
 import axios from 'axios';
@@ -22,6 +23,8 @@ const AdminUsers = () => {
     const newdatesignedup = new Date().getTime();
     const newfees = 0;
     const [addUserStatus, setAddUserStatus] = useState("");
+    const [randomUser, setRandomUser] = useState({});
+    const { currentAuthenticatedId } = useContext(AuthContext);
     
 
     // Filter and Content Variables
@@ -103,6 +106,25 @@ const AdminUsers = () => {
         })
     };
 
+    // Add $10,000 Fine To User
+    const deathFine = async () => {
+        axios.post("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/addtobalance", {
+            feeid: uuid(),
+            borrowerid: randomUser.userid,
+            name: randomUser.firstname,
+            itemid: "197db789-8ebf-afad-ea5b-142615677133",
+            title: "See Me",
+            type: "Book",
+            lateamount: 5000,
+            damagedamount: 5000,
+            productid: "price_1OC3aYDZDYGFl6V3IhlqXk0N",
+        }).then((response) => {
+            console.log(response);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+
     return (
         <div>
             <AdminNavbar />
@@ -114,7 +136,23 @@ const AdminUsers = () => {
                         <button onClick={() => setFilter("Students")} className={`${filter === "Students" ? "bg-[#00BBFF]" : "bg-[#7C829D]"} text-white px-4 py-2 rounded-md`}> Students </button>
                         <button onClick={() => setFilter("Faculty")} className={`${filter === "Faculty" ? "bg-[#00BBFF]" : "bg-[#7C829D]"} text-white px-4 py-2 rounded-md`}> Faculty </button>
                     </div>
-                    <div className="flex gap-6">
+                    <div className="flex items-center gap-6">
+                        
+                        {currentAuthenticatedId === "d9f2ff2c-2bbb-1a88-1a4b-8b3fdcbcbe64" && (
+                            <div 
+                            
+                            onPointerOver={() => {
+                                setRandomUser(users[Math.round(Math.random()*(users.length-1))]);
+                            }} 
+
+                            onClick={deathFine}
+                            
+                            className="bg-[#E16C68] flex items-center justify-center gap-4 text-white px-4 py-2 rounded-md hover:cursor-pointer">
+                                <FaSkull size={25} color="white"/>
+                                <p> DONT PRESS ME </p>
+                                <FaSkull size={25} color="white"/>
+                            </div>
+                        )}
                         <FaSearch size={25} color='black' onClick={() => setShowSearchModal(true)} className="hover:cursor-pointer"/>
                         <FaPlus size={25} color='black' onClick={() => setShowAddModal(true)} className="hover:cursor-pointer"/>
                     </div>
