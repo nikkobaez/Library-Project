@@ -115,7 +115,7 @@ const UserLibrary = () => {
                                     </div>
                                     <p> {item.title} </p>
                                     <p> { "By: " + item.author}</p>
-                                    <button onClick={() => rentItem(item)} className='bg-[#29E3B6] text-white px-4 py-2 rounded-md w-full'> Rent </button>
+                                    <button disabled={currentFees > 100} onClick={() => rentItem(item)} className={`${currentFees > 100 ? "bg-gray-400" : "bg-[#29E3B6]" } text-white px-4 py-2 rounded-md w-full`}> Rent </button>
                                 </div>
                             ))}
                         </>
@@ -131,7 +131,7 @@ const UserLibrary = () => {
                                     </div>
                                     <p> {item.title} </p>
                                     <p> { "By: " + item.author}</p>
-                                    <button onClick={() => rentItem(item)} className='bg-[#29E3B6] text-white px-4 py-2 rounded-md w-full'> Rent </button>
+                                    <button disabled={currentFees > 100} onClick={() => rentItem(item)} className='bg-[#29E3B6] text-white px-4 py-2 rounded-md w-full'> Rent </button>
                                 </div>
                             ))}
                         </>
@@ -147,7 +147,7 @@ const UserLibrary = () => {
                                     </div>
                                     <p> {item.title} </p>
                                     <p> { "By: " + item.author}</p>
-                                    <button onClick={() => rentItem(item)} className='bg-[#29E3B6] text-white px-4 py-2 rounded-md w-full'> Rent </button>
+                                    <button disabled={currentFees > 100} onClick={() => rentItem(item)} className='bg-[#29E3B6] text-white px-4 py-2 rounded-md w-full'> Rent </button>
                                 </div>
                             ))}
                         </>

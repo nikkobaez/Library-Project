@@ -17,7 +17,7 @@ const UserBalance = () => {
     const books = balance.filter(item => item.type === "Book");
     const media = balance.filter(item => item.type === "Media");
     const devices = balance.filter(item => item.type === "Device");
-    const { currentAuthenticatedId, setCurrentCart } = useContext(AuthContext);
+    const { currentAuthenticatedId, setCurrentCart, setCurrentPrice } = useContext(AuthContext);
 
     // Get All Users Fees From Balances
     useEffect(() => {
@@ -123,6 +123,7 @@ const UserBalance = () => {
                                         <button onPointerOver={() => {
                                             setProductid(fee.productid);
                                             setCurrentCart(fee.feeid);
+                                            setCurrentPrice(fee.lateamount + fee.damagedamount);
                                         }
                                         } onClick={() => {
                                             redirectToCheckout()
@@ -146,6 +147,7 @@ const UserBalance = () => {
                                         <button onPointerOver={() => {
                                             setProductid(fee.productid);
                                             setCurrentCart(fee.feeid);
+                                            setCurrentPrice(fee.lateamount + fee.damagedamount);
                                         }
                                         } onClick={() => {
                                             redirectToCheckout()
@@ -169,6 +171,7 @@ const UserBalance = () => {
                                         <button onPointerOver={() => {
                                             setProductid(fee.productid);
                                             setCurrentCart(fee.feeid);
+                                            setCurrentPrice(fee.lateamount + fee.damagedamount);
                                         }
                                         } onClick={() => {
                                             redirectToCheckout()
@@ -192,6 +195,7 @@ const UserBalance = () => {
                                         <button onPointerOver={() => {
                                             setProductid(fee.productid);
                                             setCurrentCart(fee.feeid);
+                                            setCurrentPrice(fee.lateamount + fee.damagedamount);
                                         }
                                         } onClick={() => {
                                             redirectToCheckout()

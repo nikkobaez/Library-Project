@@ -4,18 +4,21 @@ import { AuthContext } from "../context/AuthContext";
 import axios from 'axios';
 
 const Success = () => {
-    const { currentCart, setCurrentCart } = useContext(AuthContext);
+    const { currentCart, setCurrentCart, currentPrice, setCurrentPrice, currentFees, setCurrentFees } = useContext(AuthContext);
     const navigate = useNavigate();
 
     // Delete A Fee From Balance
     useEffect(() => {
         axios.delete("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/balance/" + currentCart)
         .then((response) => {
+            setCurrentFees(currentFees - currentPrice);
             setCurrentCart("");
+            setCurrentPrice("");
+
         }).catch((error) => {
             console.log(error)
         })
-    }, [currentCart, setCurrentCart])
+    }, [currentCart, setCurrentCart, currentPrice, setCurrentPrice, currentFees, setCurrentFees])
 
     return (
         <div className="flex items-center justify-center w-screen h-screen">
