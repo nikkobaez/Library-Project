@@ -4,7 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 import { FaBookOpen } from 'react-icons/fa'
 
 const AdminNavbar = () => {
-    const { currentFirstname, currentLastname, setCurrentAuthenticatedId, setCurrentFirstname, setCurrentLastname, setCurrentCart, setCurrentStatus } = useContext(AuthContext);
+    const { currentFirstname, currentLastname, currentFees, setCurrentAuthenticatedId, setCurrentFirstname, setCurrentLastname, setCurrentCart, setCurrentStatus, setCurrentFees } = useContext(AuthContext);
     const navigate = useNavigate();
 
     // Admin Logout Function
@@ -14,6 +14,7 @@ const AdminNavbar = () => {
         setCurrentLastname("");
         setCurrentCart("");
         setCurrentStatus("");
+        setCurrentFees("");
         localStorage.clear();
         navigate("/user-login");
     }
@@ -39,6 +40,7 @@ const AdminNavbar = () => {
             {/* Bottom Navigation Bar */}
             <div className='flex items-center justify-between mx-6 my-10'>
                 <p className="text-xl"> Hello {currentFirstname + " " + currentLastname}</p>
+                <p className='bg-[#DFA01F] text-white px-4 py-2 rounded-md'> {`Outstanding Fees: $ ${currentFees}.00`}</p>
             </div>
         </div>
     )

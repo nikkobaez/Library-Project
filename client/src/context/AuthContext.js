@@ -29,6 +29,11 @@ const getStatus = () => {
     return status ? JSON.parse(status) : "";
 }
 
+const getFees = () => {
+    const fees = localStorage.getItem("fees");
+    return fees ? JSON.parse(fees) : "";
+}
+
 // Context Function
 export const AuthProvider = ({children}) => {
     const [currentAuthenticatedId, setCurrentAuthenticatedId] = useState(getAuthenticatedId);
@@ -36,6 +41,7 @@ export const AuthProvider = ({children}) => {
     const [currentLastname, setCurrentLastname] = useState(getLastName);
     const [currentCart, setCurrentCart] = useState(getCart);
     const [currentStatus, setCurrentStatus] = useState(getStatus);
+    const [currentFees, setCurrentFees] = useState(getFees);
 
 
     useEffect(() => {
@@ -45,10 +51,11 @@ export const AuthProvider = ({children}) => {
         localStorage.setItem("lastname", JSON.stringify(currentLastname));
         localStorage.setItem("cart", JSON.stringify(currentCart));
         localStorage.setItem("status", JSON.stringify(currentStatus));
-    }, [currentAuthenticatedId, currentFirstname, currentLastname, currentCart, currentStatus]);
+        localStorage.setItem("fees", JSON.stringify(currentFees));
+    }, [currentAuthenticatedId, currentFirstname, currentLastname, currentCart, currentStatus, currentFees]);
 
     return (
-        <AuthContext.Provider value={{currentAuthenticatedId, setCurrentAuthenticatedId, currentFirstname, setCurrentFirstname, currentLastname, setCurrentLastname, currentCart, setCurrentCart, currentStatus, setCurrentStatus }}>
+        <AuthContext.Provider value={{currentAuthenticatedId, setCurrentAuthenticatedId, currentFirstname, setCurrentFirstname, currentLastname, setCurrentLastname, currentCart, setCurrentCart, currentStatus, setCurrentStatus, currentFees, setCurrentFees }}>
             {children}
         </AuthContext.Provider>
     )

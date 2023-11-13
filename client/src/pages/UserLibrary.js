@@ -18,7 +18,7 @@ const UserLibrary = () => {
     const media = available.filter(item => item.type === "Media");
     const devices = available.filter(item => item.type === "Device");
     const duedatems = new Date().getTime() + 86400000 * 7;
-    const { currentAuthenticatedId, currentFirstname, currentLastname} = useContext(AuthContext);
+    const { currentAuthenticatedId, currentFirstname, currentLastname, currentFees} = useContext(AuthContext);
     const navigate = useNavigate();
 
     // Get All Items From Available
@@ -163,7 +163,7 @@ const UserLibrary = () => {
                                     </div>
                                     <p> {item.title} </p>
                                     <p> { "By: " + item.author}</p>
-                                    <button onClick={() => rentItem(item)} className='bg-[#29E3B6] text-white px-4 py-2 rounded-md w-full'> Rent </button>
+                                    <button disabled={currentFees > 100} onClick={() => rentItem(item)} className='bg-[#29E3B6] text-white px-4 py-2 rounded-md w-full'> Rent </button>
                                 </div>
                             ))}
                         </>
