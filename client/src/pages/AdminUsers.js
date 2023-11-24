@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { AuthContext } from "../context/AuthContext";
+import React, { useState, useEffect } from 'react';
+// import { AuthContext } from "../context/AuthContext";
 import { Link } from 'react-scroll'
 import { FaSearch, FaPlus } from 'react-icons/fa'
 import { FaXmark } from 'react-icons/fa6'
