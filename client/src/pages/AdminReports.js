@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { FaXmark } from 'react-icons/fa6';
 import axios from 'axios';
@@ -7,6 +7,14 @@ import randomColor from 'randomcolor';
 import 'chart.js/auto';
 
 const AdminReports = () => {
+    const [usersDropDown, setUsersDropDown] = useState([]);
+    const [userOptionSelection, setUserOptionSelection] = useState({});
+    const [itemsDropDown, setItemsDropDown] = useState([]);
+    const [itemOptionSelection, setItemOptionSelection] = useState({});
+    const [currentReport, setCurrentReport] = useState("");
+    const [checkSubmit, setCheckSubmit] = useState(false);
+
+
     // Variables
     const [amountForAllUsers, setAmountForAllUsers] = useState([]);
     const [amountForAllItems, setAmountForAllItems] = useState([]);
@@ -123,7 +131,7 @@ const AdminReports = () => {
         plugins: {
             title: {
                 display: true,
-                text: `Total Amount Spent By ${name}`,
+                text: `Total Amount Spent By One User`,
                 color:'#424242',
                 font: {
                     size:28
@@ -167,7 +175,7 @@ const AdminReports = () => {
         plugins: {
             title: {
                 display: true,
-                text: `Total Amount Earned From ${title}`,
+                text: `Total Amount Earned From One Item`,
                 color:'#424242',
                 font: {
                     size:28
@@ -238,21 +246,69 @@ const AdminReports = () => {
         });
     }
 
+
+    // Get All Users and Items
+    useEffect(() => {
+        const getAllUsers = async () => {
+            axios.get("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/users")
+            .then((response) => {
+                console.log(response.data)
+                setUsersDropDown(response.data)
+            }).catch((error) => {
+                console.log(error);
+            })
+        }
+
+        const getAllItems = async () => {
+            axios.get("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/available")
+            .then((response) => {
+                console.log(response.data);
+                setItemsDropDown(response.data);
+            }).catch((error) => {
+                console.log(error);
+            })
+        }
+
+        getAllUsers();
+        getAllItems();
+    }, []);
+
     return (
         <div>
             <AdminNavbar />
             <div className="flex flex-col gap-6 mx-6">
                 <p className="text-lg"> Reports </p>
                 <div className="flex flex-col items-center justify-center w-full gap-6 p-10 bg-white border-4 border-gray-200 rounded-lg">
-                    <button onClick={getAmountForAllUsers} className="w-1/2 h-10 px-2 text-white bg-blue-500 rounded-md"> Total Amount Spent By Each User </button>
-                    <button onClick={getAmountForAllItems} className="w-1/2 h-10 px-2 text-white bg-blue-500 rounded-md"> Total Amount Earned From Each Item </button>
-                    <button onClick={() => setShowOneUserModal(true)} className="w-1/2 h-10 px-2 text-white bg-blue-500 rounded-md"> Total Amount Spent By One User  </button>
-                    <button onClick={() => setShowOneItemModal(true)} className="w-1/2 h-10 px-2 text-white bg-blue-500 rounded-md"> Total Amount Earned From One Item </button>
+                    <button onClick={() => {
+                        setCurrentReport("Report One")
+                        getAmountForAllUsers()
+                    }} className={`w-1/2 h-10 px-2 text-white ${currentReport === "Report One" ? "bg-blue-500" : "bg-gray-400"} rounded-md`}> Total Amount Spent By Each User </button>
+
+
+                    
+                    <button onClick={() => {
+                        setCurrentReport("Report Two")
+                        getAmountForAllItems()
+                    }} className={`w-1/2 h-10 px-2 text-white ${currentReport === "Report Two" ? "bg-blue-500" : "bg-gray-400"} rounded-md`}> Total Amount Earned From Each Item </button>
+
+
+                    <button onClick={() => {
+                        setCurrentReport("Report Three")
+                        setCheckSubmit(false);
+                        setShowOneUserModal(true)
+                    }} className={`w-1/2 h-10 px-2 text-white ${currentReport === "Report Three" ? "bg-blue-500" : "bg-gray-400"} rounded-md`}> Total Amount Spent By One User  </button>
+
+
+                    <button onClick={() => {
+                        setCurrentReport("Report Four")
+                        setCheckSubmit(false);
+                        setShowOneItemModal(true)
+                    }} className={`w-1/2 h-10 px-2 text-white ${currentReport === "Report Four" ? "bg-blue-500" : "bg-gray-400"} rounded-md`}> Total Amount Earned From One Item </button>
                 </div>
             </div>
 
             {/* Content For Total Amount Spent By Each User */}
-            {amountForAllUsers.length > 0 && (
+            {currentReport === "Report One" && amountForAllUsers.length > 0 && (
                 <div className="mx-6 mt-6">
                     <p className="my-6 text-lg"> Results </p>
                     <div className="flex flex-col items-center justify-center p-10 border-4 border-gray-200 rounded-lg">
@@ -279,7 +335,7 @@ const AdminReports = () => {
             )}
 
             {/* Content For Total Amount Earned From Each Item */}
-            {amountForAllItems.length > 0 && (
+            {currentReport === "Report Two" && amountForAllItems.length > 0 && (
                 <div className="mx-6 mt-6">
                     <p className="my-6 text-lg"> Results </p>
                     <div className="flex flex-col items-center justify-center p-10 border-4 border-gray-200 rounded-lg">
@@ -306,14 +362,17 @@ const AdminReports = () => {
             )}
 
             {/* Content For Total Amount Spent By One User */}
-            {amountForOneUser.length > 0 && (
+            {currentReport === "Report Three" && amountForOneUser.length > 0 && (
                 <div className="mx-6 mt-6">
                     <p className="my-6 text-lg"> Results </p>
                     <div className="flex flex-col items-center justify-center p-10 border-4 border-gray-200 rounded-lg">
                         <div className='w-1/2'>
                             <Doughnut data={dataForOneUser} options={optionsForOneUser}/>
                         </div>
-                        <div className="w-full my-6">
+                        <div className='flex w-full my-6'>
+                            <p> {"Results for " + name}  </p>
+                        </div>
+                        <div className="w-full">
                             {amountForOneUser.map((item) => (
                                 <div className="flex items-center justify-between w-full my-6 bg-gray-200">
                                     <div className="w-1/5">
@@ -332,15 +391,24 @@ const AdminReports = () => {
                 </div>
             )}
 
+            {currentReport === "Report Three" && checkSubmit === true && amountForOneUser.length === 0 && (
+                <div className='flex items-center justify-center w-full h-20'>
+                    <p> No Data For This User </p> 
+                </div>
+            )}
+
             {/* Content For Total Amount Earned From One Item */}
-            {amountForOneItem.length > 0 && (
+            {currentReport === "Report Four" && amountForOneItem.length > 0 && (
                 <div className="mx-6 mt-6">
                     <p className="my-6 text-lg"> Results </p>
                     <div className="flex flex-col items-center justify-center p-10 border-4 border-gray-200 rounded-lg">
                         <div className='w-1/2'>
                             <Doughnut data={dataForOneItem} options={optionsForOneItem}/>
                         </div>
-                        <div className="w-full my-6">
+                        <div className='flex w-full my-6'>
+                            <p> {"Results for " + title}  </p>
+                        </div>
+                        <div className="w-full">
                             {amountForOneItem.map((item) => (
                                 <div className="flex items-center justify-between w-full my-6 bg-gray-200">
                                     <div className="w-1/5">
@@ -359,6 +427,14 @@ const AdminReports = () => {
                 </div>
             )}
 
+            {currentReport === "Report Four" && checkSubmit === true && amountForOneItem.length === 0 && (
+                <div className='flex items-center justify-center w-full h-20'>
+                    <p> No Data For This Item </p> 
+                </div>
+            )}
+
+        
+
             {/* One User Modal */}
             {showOneUserModal && (
                 <div className="absolute top-0 left-0 flex items-center justify-center w-screen h-screen bg-black bg-opacity-40">
@@ -366,11 +442,27 @@ const AdminReports = () => {
                         <div className="flex justify-end w-full p-4">
                             <FaXmark size={25} color="black" onClick={() => setShowOneUserModal(false)} className="hover:cursor-pointer"/>
                         </div>
-                        <input type="text" className="w-3/4 h-10 px-2 my-2 bg-gray-200 rounded-md " placeholder="User ID" onChange={(e) => {setUserid(e.target.value)}}/>
-                        <input type="text" className="w-3/4 h-10 px-2 my-2 bg-gray-200 rounded-md " placeholder="User Name" onChange={(e) => {setName(e.target.value)}}/>
+
+                        <div className="flex flex-col my-4">
+                            <label htmlFor='userdropdown'> Select A User: </label>
+                            <select id="userdropdown" value={userOptionSelection} onChange={(event) => {
+                                const selected = JSON.parse(event.target.value);
+                                setUserOptionSelection(event.target.value);
+                                setName(selected.firstname);
+                                setUserid(selected.userid);
+                            }}>
+                                {usersDropDown.map((option) => (
+                                    <option key={option.userid} value={JSON.stringify(option)}>
+                                        {option.firstname + " : " + option.userid}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
                         <button onClick={() => {
                             getAmountForOneUser();
                             setShowOneUserModal(false);
+                            setCheckSubmit(true);
                         }} className="w-3/4 h-10 px-2 my-2 text-white bg-blue-500 rounded-md"> Submit </button>
                     </div>
                 </div>
@@ -383,11 +475,27 @@ const AdminReports = () => {
                         <div className="flex justify-end w-full p-4">
                             <FaXmark size={25} color="black" onClick={() => setShowOneItemModal(false)} className="hover:cursor-pointer"/>
                         </div>
-                        <input type="text" className="w-3/4 h-10 px-2 my-2 bg-gray-200 rounded-md " placeholder="Item ID" onChange={(e) => {setItemid(e.target.value)}}/>
-                        <input type="text" className="w-3/4 h-10 px-2 my-2 bg-gray-200 rounded-md " placeholder="Item Title" onChange={(e) => {setTitle(e.target.value)}}/>
+                        
+                        <div className="flex flex-col my-4">
+                            <label htmlFor='itemdropdown'> Select An Item: </label>
+                            <select id="itemdropdown" value={itemOptionSelection} onChange={(event) => {
+                                const selected = JSON.parse(event.target.value);
+                                setItemOptionSelection(event.target.value);
+                                setTitle(selected.title);
+                                setItemid(selected.itemid);
+                            }}>
+                                {itemsDropDown.map((option) => (
+                                    <option key={option.itemid} value={JSON.stringify(option)}>
+                                        {option.title+ " : " + option.itemid}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
                         <button onClick={() => {
                             getAmountForOneItem();
                             setShowOneItemModal(false);
+                            setCheckSubmit(true);
                         }} className="w-3/4 h-10 px-2 my-2 text-white bg-blue-500 rounded-md"> Submit </button>
                     </div>
                 </div>
