@@ -15,7 +15,7 @@ const AdminSignup = () => {
 
     // Admin Sign Up Function
     const adminSignup = async () => {
-        if (secretkey === "umarocks") {
+        if (secretkey === "COSC3380") {
             axios.post("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/admincheck", {
                 username: username 
             }).then((response) => {
