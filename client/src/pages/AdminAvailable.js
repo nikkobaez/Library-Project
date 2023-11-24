@@ -27,7 +27,7 @@ const AdminAvailable = () => {
     // Add An Item To Available
     const addItem = async () => {
         axios.post("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/addtoavailable", {
-            itemid: uuid(),
+            itemid: uuid().substring(0, 6),
             title: title,
             author: author,
             cover: cover,

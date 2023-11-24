@@ -24,7 +24,7 @@ const UserSignup = () => {
                 setSignupStatus("User already exists");
             } else {
                 axios.post('https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/usersignup', {
-                    userid: uuid(),
+                    userid: uuid().substring(0, 6),
                     firstname: firstname,
                     lastname: lastname,
                     status: status,

@@ -23,7 +23,7 @@ const AdminSignup = () => {
                     setSignupStatus("Admin already exists")
                 } else {
                     axios.post('https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/adminsignup', {
-                        adminid: uuid(),
+                        adminid: uuid().substring(0, 6),
                         firstname: firstname,
                         lastname: lastname,
                         username: username, 
