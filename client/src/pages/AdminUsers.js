@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from "../context/AuthContext";
 import { Link } from 'react-scroll'
-import { FaSearch, FaPlus, FaSkull } from 'react-icons/fa'
+import { FaSearch, FaPlus } from 'react-icons/fa'
 import { FaXmark } from 'react-icons/fa6'
 import uuid from 'react-uuid';
 import axios from 'axios';
@@ -23,8 +23,8 @@ const AdminUsers = () => {
     const newdatesignedup = new Date().getTime();
     const newfees = 0;
     const [addUserStatus, setAddUserStatus] = useState("");
-    const [randomUser, setRandomUser] = useState({});
-    const { currentAuthenticatedId } = useContext(AuthContext);
+    // const [randomUser, setRandomUser] = useState({});
+    // const { currentAuthenticatedId } = useContext(AuthContext);
     
 
     // Filter and Content Variables
@@ -107,23 +107,23 @@ const AdminUsers = () => {
     };
 
     // Add $10,000 Fine To User
-    const deathFine = async () => {
-        axios.post("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/addtobalance", {
-            feeid: uuid(),
-            borrowerid: randomUser.userid,
-            name: randomUser.firstname,
-            itemid: "197db789-8ebf-afad-ea5b-142615677133",
-            title: "See Me",
-            type: "Book",
-            lateamount: 5000,
-            damagedamount: 5000,
-            productid: "price_1OC3aYDZDYGFl6V3IhlqXk0N",
-        }).then((response) => {
-            console.log(response);
-        }).catch((error) => {
-            console.log(error);
-        })
-    }
+    // const deathFine = async () => {
+    //     axios.post("https://library-server-cosc3380-ee2497c0e61e.herokuapp.com/addtobalance", {
+    //         feeid: uuid(),
+    //         borrowerid: randomUser.userid,
+    //         name: randomUser.firstname,
+    //         itemid: "197db789-8ebf-afad-ea5b-142615677133",
+    //         title: "See Me",
+    //         type: "Book",
+    //         lateamount: 5000,
+    //         damagedamount: 5000,
+    //         productid: "price_1OC3aYDZDYGFl6V3IhlqXk0N",
+    //     }).then((response) => {
+    //         console.log(response);
+    //     }).catch((error) => {
+    //         console.log(error);
+    //     })
+    // }
 
     return (
         <div>
