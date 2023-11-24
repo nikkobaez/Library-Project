@@ -12,10 +12,10 @@ const Welcome = () => {
         <div>
             <WelcomeNavbar showLoginModal={() => setShowLoginModal(true)}/>
 
-            <div className="flex w-screen items-center justify-center h-screen bg-[#5494D4]">
+            <div className="flex items-center justify-center w-screen h-screen">
                 <div className="flex flex-col w-1/2 mb-20 ml-6">
-                    <p className="text-3xl font-semibold text-white"> Embark On A Journey Into The World of Books In Your Own Nook </p>
-                    <p className="py-6 text-white text-opacity-50"> At Book Nook, we extend a warm invitation, encouraging you to embark on an enchanting journey into the captivating world of books, all from the blissful comfort of your very own nook. Here, within the hallowed walls of our literary haven, you'll discover a boundless universe of stories, each one serving as a magical portal to adventure, knowledge, and the limitless realms of imagination. Immerse yourself in the spellbinding allure of our carefully curated collection of miniature books, where every literary gem is a gateway to worlds as expansive as your wildest dreams. As you peruse the shelves of our haven, you'll find yourself transported to far-off lands, traversing through the corridors of time, and delving into the depths of human emotion. </p> 
+                    <p className="text-3xl font-semibold text-black"> Embark On A Journey Into The World of Books In Your Own Nook </p>
+                    <p className="py-6 text-black"> At Book Nook, we extend a warm invitation, encouraging you to embark on an enchanting journey into the captivating world of books, all from the blissful comfort of your very own nook. Here, within the hallowed walls of our literary haven, you'll discover a boundless universe of stories, each one serving as a magical portal to adventure, knowledge, and the limitless realms of imagination. Immerse yourself in the spellbinding allure of our carefully curated collection of miniature books, where every literary gem is a gateway to worlds as expansive as your wildest dreams. As you peruse the shelves of our haven, you'll find yourself transported to far-off lands, traversing through the corridors of time, and delving into the depths of human emotion. </p> 
                 </div>
                 <div className="flex items-center justify-center w-1/2 mb-20">
                     <img src={WelcomeImage} alt="welcome"/>

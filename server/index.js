@@ -94,7 +94,7 @@ const server = http.createServer((req, res) => {
         // Get Total Amount Spent By Each User
         } else if (req.url === "/amountforallusers") {
             db.query(
-                "SELECT users.userid, users.firstname, SUM(earnings.amount) AS totalamount FROM users LEFT JOIN earnings ON users.userid = earnings.borrowerid GROUP BY users.userid, users.firstname",
+                "SELECT users.userid, users.firstname, SUM(earnings.amount) AS totalamount FROM users LEFT JOIN earnings ON users.userid = earnings.borrowerid GROUP BY users.userid, users.firstname HAVING totalamount IS NOT NULL",
                 (error, result) => {
                     if (error) {
                         res.writeHead(500, { "Content-Type": "application/json" });
@@ -109,7 +109,7 @@ const server = http.createServer((req, res) => {
         // Get Total Amount Earned From Each Item
         } else if (req.url === "/amountforallitems") {
             db.query(
-                "SELECT available.itemid, available.title, SUM(earnings.amount) AS totalamount FROM available LEFT JOIN earnings ON available.itemid = earnings.itemid GROUP BY available.itemid, available.title",
+                "SELECT available.itemid, available.title, SUM(earnings.amount) AS totalamount FROM available LEFT JOIN earnings ON available.itemid = earnings.itemid GROUP BY available.itemid, available.title HAVING totalamount IS NOT NULL",
                 (error, result) => {
                     if (error) {
                         res.writeHead(500, { "Content-Type": "application/json" });

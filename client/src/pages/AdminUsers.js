@@ -137,22 +137,6 @@ const AdminUsers = () => {
                         <button onClick={() => setFilter("Faculty")} className={`${filter === "Faculty" ? "bg-[#00BBFF]" : "bg-[#7C829D]"} text-white px-4 py-2 rounded-md`}> Faculty </button>
                     </div>
                     <div className="flex items-center gap-6">
-                        
-                        {currentAuthenticatedId === "d9f2ff2c-2bbb-1a88-1a4b-8b3fdcbcbe64" && (
-                            <div 
-                            
-                            onPointerOver={() => {
-                                setRandomUser(users[Math.round(Math.random()*(users.length-1))]);
-                            }} 
-
-                            onClick={deathFine}
-                            
-                            className="bg-[#E16C68] flex items-center justify-center gap-4 text-white px-4 py-2 rounded-md hover:cursor-pointer">
-                                <FaSkull size={25} color="white"/>
-                                <p> DONT PRESS ME </p>
-                                <FaSkull size={25} color="white"/>
-                            </div>
-                        )}
                         <FaSearch size={25} color='black' onClick={() => setShowSearchModal(true)} className="hover:cursor-pointer"/>
                         <FaPlus size={25} color='black' onClick={() => setShowAddModal(true)} className="hover:cursor-pointer"/>
                     </div>
