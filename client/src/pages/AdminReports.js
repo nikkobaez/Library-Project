@@ -312,7 +312,7 @@ const AdminReports = () => {
                 <div className="mx-6 mt-6">
                     <p className="my-6 text-lg"> Results </p>
                     <div className="flex flex-col items-center justify-center p-10 border-4 border-gray-200 rounded-lg">
-                        <div className="w-1/2">
+                        <div className="w-2/5">
                             <Doughnut data={dataForAllUsers} options={optionsForAllUsers}/>
                         </div>
                         <div className="w-full my-6">
@@ -339,7 +339,7 @@ const AdminReports = () => {
                 <div className="mx-6 mt-6">
                     <p className="my-6 text-lg"> Results </p>
                     <div className="flex flex-col items-center justify-center p-10 border-4 border-gray-200 rounded-lg">
-                        <div className='w-3/5'>
+                        <div className='w-2/5'>
                             <Doughnut data={dataForAllItems} options={optionsForAllItems}/>
                         </div>
                         <div className="w-full my-6">
@@ -366,7 +366,7 @@ const AdminReports = () => {
                 <div className="mx-6 mt-6">
                     <p className="my-6 text-lg"> Results </p>
                     <div className="flex flex-col items-center justify-center p-10 border-4 border-gray-200 rounded-lg">
-                        <div className='w-1/2'>
+                        <div className='w-2/5'>
                             <Doughnut data={dataForOneUser} options={optionsForOneUser}/>
                         </div>
                         <div className='flex w-full my-6'>
@@ -402,7 +402,7 @@ const AdminReports = () => {
                 <div className="mx-6 mt-6">
                     <p className="my-6 text-lg"> Results </p>
                     <div className="flex flex-col items-center justify-center p-10 border-4 border-gray-200 rounded-lg">
-                        <div className='w-1/2'>
+                        <div className='w-2/5'>
                             <Doughnut data={dataForOneItem} options={optionsForOneItem}/>
                         </div>
                         <div className='flex w-full my-6'>
